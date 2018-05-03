@@ -7,10 +7,11 @@ public class WeaponController : MonoBehaviour {
 	public enum WeaponType {Stab, Slash, Ranged};
 
 	//need to be set up in editor
-	public float weaponReach;
-	public float weaponDamage;
-	public WeaponType type;
-	public Collider2D coll;
+	public float weaponReach; // how far the weapons hitbox will go 
+	public float hangTime;	//how long the hitbox is out
+	public float weaponDamage; // how much damage it does
+	public WeaponType type; // the type of weapon being used
+	public Collider2D coll; //weapons hitbox
 	//
 
 	//TEST POINTS -> to check the stab raycast
@@ -25,6 +26,8 @@ public class WeaponController : MonoBehaviour {
 
 
 	void Start () {
+		coll = GetComponent<Collider2D> ();
+		coll.enabled = false;
 		enemyLayer = LayerMask.NameToLayer ("Enemy");	
 	}
 		
@@ -40,15 +43,20 @@ public class WeaponController : MonoBehaviour {
 	}
 
 	public void getHit(Vector3 mouseAt){
+			coll.enabled = true;
+		//print ("active at " + Time.time);
+		Invoke ("ResetHitbox",hangTime);
+		
 	//stab
 		if (type == WeaponType.Stab) {
+			//LEGACY CODE MAY BE USED LATER
 			//raycast towards lookat
 			//math prep
-			float dist = Vector2.Distance (mouseAt, transform.position);
-			float distRatio = weaponReach / dist;
-			float endPointX = (1 - distRatio) * transform.position.x + (distRatio * mouseAt.x);
-			float endPointY = (1 - distRatio) * transform.position.y + (distRatio * mouseAt.y);
-			Vector2 endPoint = new Vector2 (endPointX, endPointY);
+			//float dist = Vector2.Distance (mouseAt, transform.position);
+			//float distRatio = weaponReach / dist;
+			//float endPointX = (1 - distRatio) * transform.position.x + (distRatio * mouseAt.x);
+			//float endPointY = (1 - distRatio) * transform.position.y + (distRatio * mouseAt.y);
+			//Vector2 endPoint = new Vector2 (endPointX, endPointY);
 
 			//-----stuff for testing
 			//checking = true;
@@ -57,13 +65,8 @@ public class WeaponController : MonoBehaviour {
 			//end = mouseAt;
 			//-----
 
-			//linecast (raycast but flatter)
-			RaycastHit2D[] enemysHit = Physics2D.LinecastAll (transform.position, endPoint, enemyLayer);
-			//go through the array and call the hurt method
-			for(int i = 0; i < enemysHit.Length; i++){
-				enemysHit [i].collider.gameObject.SendMessage ("ApplyDamage",weaponDamage);
 
-			}
+
 		}
 	//slash
 		//spawn hitbox and check
@@ -88,6 +91,11 @@ public class WeaponController : MonoBehaviour {
 
 	}
 
+	void ResetHitbox(){
+		coll.enabled = false;
+		//print ("inActive at " + Time.time);
+	}
+
 	void OnDrawGizmos(){
 		if (checking) {
 			Gizmos.color = Color.cyan;
@@ -97,5 +105,10 @@ public class WeaponController : MonoBehaviour {
 			//Gizmos.color = Color.white;
 			//Gizmos.DrawLine (start, end);
 		}
+	}
+
+	void OnTriggerEnter2D(Collider2D touched){
+		print ("hit");
+
 	}
 }
