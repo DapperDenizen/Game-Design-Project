@@ -6,7 +6,7 @@ using System;
 public class Pathfinding : MonoBehaviour {
 
 	WaypointHandler handler;
-	PathWay[] gizmoPath = new PathWay[10];
+	//PathWay[] gizmoPath = new PathWay[10];
 	PathRequestManager requestManager;
 
 	// Use this for initialization
@@ -66,7 +66,7 @@ public class Pathfinding : MonoBehaviour {
 		if (pathSuccess) {
 		
 			pathPoints = RetracePath (startingPoint, targetPoint);
-			gizmoPath = pathPoints;
+			//gizmoPath = pathPoints;
 		}
 		requestManager.FinishedProcessingPath (pathPoints, pathSuccess);
 
@@ -76,13 +76,11 @@ public class Pathfinding : MonoBehaviour {
 	PathWay[] RetracePath(Waypoint start, Waypoint end){
 		List<PathWay> path = new List<PathWay> ();
 		Waypoint currentPoint = end;
-		Waypoint previousPoint = end;
 		bool jumpingHere = false;
 		while (currentPoint != start) {
 
 			path.Add (new PathWay (currentPoint.worldPosition, jumpingHere));
 			jumpingHere = currentPoint.IsJump(currentPoint.parent);
-			previousPoint = currentPoint;
 			currentPoint = currentPoint.parent;
 		}
 		PathWay[] returnPath;
@@ -90,25 +88,8 @@ public class Pathfinding : MonoBehaviour {
 		Array.Reverse(returnPath);
 		return returnPath;
 
-	}
-
-	/*Waypoint[] SimplifyPath(List<Waypoint> path){
-		List<Waypoint> simplerPoints = new List<Waypoint> ();
-
-		Vector2 directionOld = Vector2.zero;
-		for(int i = 1; i < path.Count; i++){
-			Vector2 directionNew = new Vector2(path[i-1].worldPosition.x - path[i].worldPosition.x,path[i-1].worldPosition.y - path[i].worldPosition.y );
-			if(directionNew != directionOld){
-				simplerPoints.Add(path[i]);
-
-			}
-			directionOld = directionNew;
-		}
-		return simplerPoints.ToArray();
-	}*/
-
-
-
+	}		
+		
 	int GetDistance(Waypoint a, Waypoint b)
 	{
 		float xChange = Mathf.Abs (a.worldPosition.x - b.worldPosition.x);
@@ -118,7 +99,7 @@ public class Pathfinding : MonoBehaviour {
 	}
 
 
-	void OnDrawGizmos() {
+/*  void OnDrawGizmos() {
 		if (gizmoPath.Length != null) {
 			Gizmos.color = Color.red;
 			Gizmos.DrawSphere (gizmoPath[0].worldPosition, 0.3f);
@@ -130,10 +111,10 @@ public class Pathfinding : MonoBehaviour {
 					Gizmos.color = Color.red;
 				}
 				Gizmos.DrawSphere (gizmoPath [i].worldPosition, 0.3f);
-			}*/
+			}
 		}
 	}
-//*/
+*/
 
 	public struct PathWay {
 		public Vector2 worldPosition;

@@ -13,7 +13,6 @@ public class Enemy : Unit {
 	int currentIndex;
 	//references
 	GameObject player;
-
 	//override means i am using this Start() not the parent(unit)'s start, but calling base.start() means i call it as well
 	override public void Start(){
 		base.Start ();
@@ -21,7 +20,6 @@ public class Enemy : Unit {
 
 	
 	}
-
 	void Update(){
 		if (Input.GetKeyDown(KeyCode.J)) {
 			StartPath (player.transform.position);
@@ -50,17 +48,11 @@ public class Enemy : Unit {
 
 	IEnumerator FollowPath(){
 	//initialise
-
 		currentIndex = 0;
-		Vector2 currentWaypoint = path [0].worldPosition;
-		//X direction
-		bool goingRight; // true = right, false = left
-		if (currentWaypoint.x > transform.position.x) {
-			goingRight = true;
-		} else {
-			 goingRight = false;
+		Vector2 currentWaypoint = new Vector2 (0,0);
+		if (path [0].worldPosition != null) {
+			currentWaypoint = path [0].worldPosition;
 		}
-
 		//check if done
 		while(currentIndex < path.Length -1 ){
 			if (Mathf.Abs(currentWaypoint.x - transform.position.x) < 1f) {
@@ -78,11 +70,9 @@ public class Enemy : Unit {
 			}
 			//check if jumping
 			if(path[currentIndex].isJumping){
-				print ("jumping");
 				if (grounded) {
 					if (rb2d.velocity.y <= 0) {
 						yIntention = jumpVel;
-						print ("i am jumping at "+ yIntention);
 					}
 				} 
 			}
@@ -92,7 +82,6 @@ public class Enemy : Unit {
 
 			yield return null;
 		}
-		print ("ended");
 	}
 	/*void OnDrawGizmos() {
 		if (path != null) {

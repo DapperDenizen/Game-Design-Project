@@ -24,14 +24,12 @@ public class WaypointHandler : MonoBehaviour {
 		platforms = GameObject.FindGameObjectsWithTag("Ground");
 		//make waypoints
 		Vector2 startPos;
-		Vector2 endPos;
 			// loop over platforms
 		foreach (GameObject plat in platforms) {
 			int platXSize = Mathf.RoundToInt (plat.GetComponent<BoxCollider2D>().bounds.size.x / waypointSpacing);
 			//get left edge and start creating new waypoints until hit the other edge
 			Vector2 centre = new Vector2 (plat.GetComponent<BoxCollider2D>().bounds.center.x, plat.GetComponent<BoxCollider2D>().bounds.center.y + plat.GetComponent<BoxCollider2D>().bounds.extents.y + hoverSpacing); 
 			startPos = new Vector2 (centre.x - plat.GetComponent<BoxCollider2D>().bounds.extents.x, centre.y);
-			endPos = new Vector2 (centre.x + plat.GetComponent<BoxCollider2D>().bounds.extents.x, centre.y);
 			Vector2 currentWaypoint;
 			int i = 0;
 			bool isEdge = true;
@@ -49,7 +47,6 @@ public class WaypointHandler : MonoBehaviour {
 
 		waypoints = waypointsList.ToArray ();
 		QuickSort (0, waypoints.Length-1);
-
 		wayPointSize = waypoints.Length;
 		//--------------------------------------------------------------------------------------------------connect waypoints
 			//loop over waypoints giving each of them the next in line and a null bool
@@ -91,11 +88,19 @@ public class WaypointHandler : MonoBehaviour {
 	}
 
 
-	//THIS IS BAD MAKE IT MORE EFFICIENT, THE WAYPOINTS LIST IS SORTED BY THE X POSITION EXPLOIT THAT
 	public Waypoint PointFromWorldPosition(Vector2 worldPosition){
 		int wayIndex = 0;
+		int iMax; //max being checked
+		int iMin; //min being checked
+		if (worldPosition.x > waypoints [Mathf.RoundToInt (waypoints.Length / 2)].worldPosition.x) {
+			iMax = waypoints.Length;
+			iMin = Mathf.RoundToInt (waypoints.Length / 2);
+		} else {
+			iMin = 0;
+			iMax = Mathf.RoundToInt (waypoints.Length / 2);
+		}
 		float smallestDistance = Mathf.Infinity;
-		for(int i =0; i < waypoints.Length; i++) {
+		for(int i =iMin; i < iMax; i++) {
 			if (Vector2.Distance (worldPosition, waypoints [i].worldPosition) < smallestDistance) {
 			
 				smallestDistance = Vector2.Distance (worldPosition, waypoints[i].worldPosition);
@@ -135,10 +140,7 @@ public class WaypointHandler : MonoBehaviour {
 		waypoints [b] = waypoints[a];
 		waypoints[a] = temp;
 	}
-
-	//float TopLeftCorner(GameObject platform){
-	//	return platform.GetComponent<BoxCollider2D> ().bounds.center.x - platform.GetComponent<BoxCollider2D> ().bounds.extents.x;
-	//}
+		
 
 
 

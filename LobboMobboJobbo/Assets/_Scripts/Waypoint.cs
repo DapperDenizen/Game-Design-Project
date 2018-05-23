@@ -48,7 +48,6 @@ public class Waypoint : IHeapItem<Waypoint> {
 
 	public List<Waypoint> getNeighbours(){
 		List<Waypoint> returnList = new List<Waypoint>(neighbours);
-		//returnList = neighbours;
 		if (jumpConnection != null) {
 			returnList.Add (jumpConnection);
 		}
