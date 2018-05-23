@@ -6,7 +6,7 @@ using System;
 public class Pathfinding : MonoBehaviour {
 
 	WaypointHandler handler;
-	List<Waypoint> gizmoPath = new List<Waypoint>();
+	PathWay[] gizmoPath = new PathWay[10];
 	PathRequestManager requestManager;
 
 	// Use this for initialization
@@ -34,7 +34,7 @@ public class Pathfinding : MonoBehaviour {
 		
 			Waypoint currentPoint = openSet.RemoveFirst ();
 			closedSet.Add (currentPoint);
-			gizmoPath.Add (currentPoint);
+			//gizmoPath.Add (currentPoint);
 			if (currentPoint == targetPoint) {
 				pathSuccess = true;
 				break;
@@ -66,7 +66,7 @@ public class Pathfinding : MonoBehaviour {
 		if (pathSuccess) {
 		
 			pathPoints = RetracePath (startingPoint, targetPoint);
-			//gizmoPath = pathPoints;
+			gizmoPath = pathPoints;
 		}
 		requestManager.FinishedProcessingPath (pathPoints, pathSuccess);
 
@@ -77,9 +77,11 @@ public class Pathfinding : MonoBehaviour {
 		List<PathWay> path = new List<PathWay> ();
 		Waypoint currentPoint = end;
 		Waypoint previousPoint = end;
+		bool jumpingHere = false;
 		while (currentPoint != start) {
 
-			path.Add (new PathWay (currentPoint.worldPosition, currentPoint.IsJump (currentPoint.parent)));
+			path.Add (new PathWay (currentPoint.worldPosition, jumpingHere));
+			jumpingHere = currentPoint.IsJump(currentPoint.parent);
 			previousPoint = currentPoint;
 			currentPoint = currentPoint.parent;
 		}
@@ -116,15 +118,22 @@ public class Pathfinding : MonoBehaviour {
 	}
 
 
-/*	void OnDrawGizmos() {
-		if (gizmoPath.Count != null) {
-			for (int i = 0; i < gizmoPath.Count; i++) {
+	void OnDrawGizmos() {
+		if (gizmoPath.Length != null) {
+			Gizmos.color = Color.red;
+			Gizmos.DrawSphere (gizmoPath[0].worldPosition, 0.3f);
+			Gizmos.color = Color.green;
+			Gizmos.DrawSphere (gizmoPath[gizmoPath.Length-1].worldPosition, 0.3f);
+			/*for (int i = 0; i < gizmoPath.Length; i++) {
 				Gizmos.color = Color.green;
+				if (gizmoPath [i].isJumping) {
+					Gizmos.color = Color.red;
+				}
 				Gizmos.DrawSphere (gizmoPath [i].worldPosition, 0.3f);
-			}
+			}*/
 		}
 	}
-*/
+//*/
 
 	public struct PathWay {
 		public Vector2 worldPosition;

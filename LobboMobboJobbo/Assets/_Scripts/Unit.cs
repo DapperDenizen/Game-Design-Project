@@ -57,4 +57,15 @@ public class Unit : MonoBehaviour {
 		grounded = false;
 	}
 
+	void OnTriggerEnter2D(Collider2D other){
+		if (other.gameObject.layer == groundLayer) {
+			HitGround ();
+		}
+	}
+
+	void OnTriggerExit2D(Collider2D other){
+		if (other.gameObject.layer == groundLayer) {
+			LeaveGround ();
+		}
+	}
 }

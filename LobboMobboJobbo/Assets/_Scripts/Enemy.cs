@@ -38,8 +38,6 @@ public class Enemy : Unit {
 
 	public void OnPathFound(Pathfinding.PathWay[] newPath, bool pathSuccess){
 
-		print ("Path found = " + pathSuccess);
-
 		if (pathSuccess) {
 			path = newPath;
 			StopCoroutine ("FollowPath");
@@ -51,31 +49,51 @@ public class Enemy : Unit {
 
 
 	IEnumerator FollowPath(){
-		currentIndex = 0;
-		currentTarget = path [0];
-		while(true){
-		//get the X intention
-			if (currentTarget.worldPosition.x > transform.position.x) {
-				xIntention = 1;
-			} else {
-				xIntention = -1;
-			}
-			// check if you will need to jump
-			if (currentTarget.isJumping) {
-				yIntention = jumpVel+rb2d.velocity.y;
+	//initialise
 
+		currentIndex = 0;
+		Vector2 currentWaypoint = path [0].worldPosition;
+		//X direction
+		bool goingRight; // true = right, false = left
+		if (currentWaypoint.x > transform.position.x) {
+			goingRight = true;
+		} else {
+			 goingRight = false;
+		}
+
+		//check if done
+		while(currentIndex < path.Length -1 ){
+			if (Mathf.Abs(currentWaypoint.x - transform.position.x) < 1f) {
+				currentIndex++;
+			}	
+				currentWaypoint = path [currentIndex].worldPosition;
+
+			//get x movements
+			if (currentWaypoint.x > transform.position.x) {
+				xIntention = 1;
+			} else if (currentWaypoint.x < transform.position.x) {
+				xIntention = -1;
 			} else {
-				yIntention = 0;
+				xIntention = 0;
 			}
-		//make the nessecary movements until x > waypoint.worlposition
-			Vector2 intentionDir = new Vector2(xIntention*walkSpeed,yIntention);
-			xIntention = 0;
+			//check if jumping
+			if(path[currentIndex].isJumping){
+				print ("jumping");
+				if (grounded) {
+					if (rb2d.velocity.y <= 0) {
+						yIntention = jumpVel;
+						print ("i am jumping at "+ yIntention);
+					}
+				} 
+			}
+			float yChange = yIntention + rb2d.velocity.y;
 			yIntention = 0;
+			MoveUnit (new Vector2 (xIntention*walkSpeed,yChange));
+
 			yield return null;
 		}
+		print ("ended");
 	}
-
-
 	/*void OnDrawGizmos() {
 		if (path != null) {
 			for (int i = 0; i < path.Length; i++) {
