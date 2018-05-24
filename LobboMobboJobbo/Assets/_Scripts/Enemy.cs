@@ -8,8 +8,8 @@ public class Enemy : Unit {
 	int xIntention = 0; //intended movement on the x axis,can be 1, 0 or -1
 	float yIntention = 0; //intended movement on the y axis,can be 1, 0 or -1
 	//Pathfinding
-	Pathfinding.PathWay[] path; // this is the path we are following
-	Pathfinding.PathWay currentTarget;
+	public Pathfinding.PathWay[] path; // this is the path we are following
+	public Pathfinding.PathWay currentTarget;
 	int currentIndex;
 	//references
 	GameObject player;
@@ -21,12 +21,22 @@ public class Enemy : Unit {
 	
 	}
 	void Update(){
-		if (Input.GetKeyDown(KeyCode.J)) {
+		//check if close enough
+		/*if (Vector2.Distance (transform.position, player.transform.position) > weapon.GetComponent<WeaponController> ().weaponReach) {
+			// not close enough
+			StartPath (player.transform.position);
+		} else {
+			//close enough
+
+			//for testing purposes we dont have a weapon
+			print("~ ~ oo im gunna get you! you better be scared! boogedy boogedy boo ~ ~");
+			//AttackPrimary(player.transform.position);
+		} */
+		if (Input.GetKeyUp (KeyCode.J)) {
 			StartPath (player.transform.position);
 		}
+
 	}
-
-
 
 	void StartPath(Vector2 targetGoal){
 	
@@ -34,7 +44,7 @@ public class Enemy : Unit {
 
 	}
 
-	public void OnPathFound(Pathfinding.PathWay[] newPath, bool pathSuccess){
+	virtual public void OnPathFound(Pathfinding.PathWay[] newPath, bool pathSuccess){
 
 		if (pathSuccess) {
 			path = newPath;
