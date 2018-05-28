@@ -24,7 +24,6 @@ public class Enemy_Kelpers : Enemy {
 		List<Pathfinding.PathWay> kelpedPath = new List<Pathfinding.PathWay>();
 		int nowAt = 0;
 		for (int i = 0; i < newPath.Length; i++) {
-			print ("at "+ nowAt + " / "+ numberOfTheDay);
 			if (nowAt == numberOfTheDay) {
 				kelpedPath.Add (newPath[i-1]);
 				kelpedPath.Add (newPath[i-2]);

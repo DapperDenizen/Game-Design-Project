@@ -20,7 +20,8 @@ public class WaypointHandler : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	//get everything
-		platformMask = LayerMask.NameToLayer("Ground"); 
+		platformMask = LayerMask.GetMask("Ground");
+
 		platforms = GameObject.FindGameObjectsWithTag("Ground");
 		//make waypoints
 		Vector2 startPos;
@@ -51,41 +52,52 @@ public class WaypointHandler : MonoBehaviour {
 		//--------------------------------------------------------------------------------------------------connect waypoints
 			//loop over waypoints giving each of them the next in line and a null bool
 		for(int i = 0; i < waypoints.Length-1; i ++){
-			for (int z = i; z <  waypoints.Length; z++) {
+			for (int z = 0; z <  waypoints.Length; z++) {
 				if (i == z) {continue;}
-					if (Connectable (waypoints [i], waypoints [z])) {
-						waypoints [i].NextNeighbour (waypoints [z]);
-					}
+				Connectable (waypoints [i], waypoints [z]);
 				}
 				//
 		}
 	}
 
-	bool Connectable(Waypoint a, Waypoint b){
+
+
+	//checks is two points should connect or not
+	void Connectable(Waypoint a, Waypoint b){
 
 	//check if they are platform connected
 		if(a.worldPosition.y == b.worldPosition.y && Vector2.Distance(a.worldPosition,b.worldPosition) < (waypointSpacing*1.01f)){
-			return true;
+			a.NextNeighbour (b, Waypoint.ConnectType.Walk);
 		}
-	//check if they are jump connected -------------------------------------------------------------if platforms float above other platforms change onEdge && to an ||
-		if((b.jumpConnection == null && a.jumpConnection == null) && (a.onEdge && b.onEdge)){
+
+	//check if they are jump connected 
+		if (a.onEdge || b.onEdge) {
 			//both are eligable to have a jump connnection
-			if(Vector2.Distance(a.worldPosition,b.worldPosition) < maxJumpDistance){
+			if (Vector2.Distance (a.worldPosition, b.worldPosition) <= maxJumpDistance) {
 				//they are close enough
-				RaycastHit2D hitA = Physics2D.Raycast(a.worldPosition,( b.worldPosition - a.worldPosition),Mathf.Infinity,~platformMask);
-				RaycastHit2D hitB = Physics2D.Raycast(b.worldPosition,( a.worldPosition - b.worldPosition),Mathf.Infinity,~platformMask);
+				RaycastHit2D hitA = Physics2D.Raycast (a.worldPosition, (b.worldPosition - a.worldPosition), Mathf.Infinity, platformMask);
+				RaycastHit2D hitB = Physics2D.Raycast (b.worldPosition, (a.worldPosition - b.worldPosition), Mathf.Infinity, platformMask);
 				if (hitA.collider != null) {
-					if (Vector2.Distance (hitA.point,hitB.point) > hitA.collider.bounds.size.y*0.9) {
-						return false;
+					if (Vector2.Distance (hitA.point, hitB.point) < hitA.collider.bounds.size.y * 0.9) {
+						//check if theres already a jump connection to this platform
+						if (!platformCompare (a, b)) {
+							a.NextNeighbour (b, Waypoint.ConnectType.Jump);	
+						}
+
 					}
 				}
-				return true;
+
 			}
-		} 
+			//check if they are vertically connected (both are close on the Y axis B is above A
+		} else if(Mathf.Abs(a.worldPosition.x - b.worldPosition.x) < 1f && b.worldPosition.y > a.worldPosition.y && a.throughConnection == null){
+			a.NextNeighbour (b, Waypoint.ConnectType.Through); 
 
-
-		return false;
+		}
 	}
+
+
+
+
 
 
 	public Waypoint PointFromWorldPosition(Vector2 worldPosition){
@@ -98,11 +110,11 @@ public class WaypointHandler : MonoBehaviour {
 		} else {
 			iMin = 0;
 			iMax = Mathf.RoundToInt (waypoints.Length / 2);
-		}
+		}//*/
 		float smallestDistance = Mathf.Infinity;
 		for(int i =iMin; i < iMax; i++) {
-			if (Vector2.Distance (worldPosition, waypoints [i].worldPosition) < smallestDistance) {
-			
+			if (Vector2.Distance (worldPosition, waypoints [i].worldPosition) < smallestDistance ) {
+				//&& worldPosition.y == waypoints[i].worldPosition.y
 				smallestDistance = Vector2.Distance (worldPosition, waypoints[i].worldPosition);
 				wayIndex = i;
 			}
@@ -111,6 +123,22 @@ public class WaypointHandler : MonoBehaviour {
 	}
 
 
+
+	//returns true if there is a connection from a to platform on b
+	bool platformCompare(Waypoint a, Waypoint b){
+		if (a.jumpConnections.Count == 0) {
+			return false;
+		}
+		RaycastHit2D hitPoint; 
+		RaycastHit2D hitB = Physics2D.Raycast(b.worldPosition,Vector2.down,Mathf.Infinity,platformMask);
+		foreach (Waypoint point in a.jumpConnections) {
+			hitPoint = Physics2D.Raycast(point.worldPosition,Vector2.down,Mathf.Infinity,platformMask);
+			if (hitB.collider == hitPoint.collider) {
+				return true;
+			}
+		}
+		return false;
+	}
 	//utility
 
 
@@ -144,14 +172,19 @@ public class WaypointHandler : MonoBehaviour {
 
 
 
-	/*void OnDrawGizmos() {
-		for(int i = 0; i < waypoints.Length; i++){
+/*void OnDrawGizmos() {
+		for(int i = 0; i < waypoints.Length-1; i++){
 			Gizmos.color = Color.red;
-
+			if (waypoints [i].throughConnection != null) {
+				Gizmos.color = Color.yellow;
+			}
 			Gizmos.DrawSphere (waypoints [i].worldPosition, 0.3f);
-	
+			Gizmos.color = Color.green;
+			foreach (Waypoint point in waypoints[i].getNeighbours()) {
+				Gizmos.DrawLine (waypoints [i].worldPosition, point.worldPosition);
+			}
 			
 		}
-	} */
+	} //*/
 
 }

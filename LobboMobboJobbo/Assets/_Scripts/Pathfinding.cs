@@ -6,7 +6,8 @@ using System;
 public class Pathfinding : MonoBehaviour {
 
 	WaypointHandler handler;
-	//PathWay[] gizmoPath = new PathWay[10];
+	Vector2 gizmoME; 
+	PathWay[] gizmoPath = new PathWay[10];
 	PathRequestManager requestManager;
 
 	// Use this for initialization
@@ -20,12 +21,13 @@ public class Pathfinding : MonoBehaviour {
 	}
 
 	IEnumerator FindPath(Vector2 start, Vector2 target){
-
+		gizmoME = start;
 		PathWay[] pathPoints = new PathWay[0];
 		bool pathSuccess = false;
 		Waypoint startingPoint = handler.PointFromWorldPosition (start);
 		Waypoint targetPoint = handler.PointFromWorldPosition (target);
-	
+		print ("i am at "+ start +" pathfinding thinks im at "+ startingPoint.worldPosition +" i want to go to "+ target + " Pathfinding thinks that is "+ targetPoint.worldPosition);
+
 		Heap<Waypoint> openSet = new Heap<Waypoint> (handler.wayPointSize); //to be evaluated
 		HashSet<Waypoint> closedSet = new HashSet<Waypoint> ();	//already evaluated
 		openSet.Add (startingPoint);
@@ -66,7 +68,7 @@ public class Pathfinding : MonoBehaviour {
 		if (pathSuccess) {
 		
 			pathPoints = RetracePath (startingPoint, targetPoint);
-			//gizmoPath = pathPoints;
+			gizmoPath = pathPoints;
 		}
 		requestManager.FinishedProcessingPath (pathPoints, pathSuccess);
 
@@ -77,10 +79,12 @@ public class Pathfinding : MonoBehaviour {
 		List<PathWay> path = new List<PathWay> ();
 		Waypoint currentPoint = end;
 		bool jumpingHere = false;
+		bool through = false;
 		while (currentPoint != start) {
 
-			path.Add (new PathWay (currentPoint.worldPosition, jumpingHere));
+			path.Add (new PathWay (currentPoint.worldPosition, jumpingHere, through));
 			jumpingHere = currentPoint.IsJump(currentPoint.parent);
+			through = currentPoint.Isthrough(currentPoint.parent);
 			currentPoint = currentPoint.parent;
 		}
 		PathWay[] returnPath;
@@ -94,35 +98,39 @@ public class Pathfinding : MonoBehaviour {
 	{
 		float xChange = Mathf.Abs (a.worldPosition.x - b.worldPosition.x);
 		float yChange = Mathf.Abs (a.worldPosition.y - b.worldPosition.y);
-		int returnDist = Mathf.RoundToInt( xChange + (yChange* 1.5f));
+		int returnDist = Mathf.RoundToInt(10 + xChange + (yChange* 1.5f));
 		return returnDist;
 	}
 
 
-/*  void OnDrawGizmos() {
+ void OnDrawGizmos() {
 		if (gizmoPath.Length != null) {
-			Gizmos.color = Color.red;
-			Gizmos.DrawSphere (gizmoPath[0].worldPosition, 0.3f);
-			Gizmos.color = Color.green;
-			Gizmos.DrawSphere (gizmoPath[gizmoPath.Length-1].worldPosition, 0.3f);
-			/*for (int i = 0; i < gizmoPath.Length; i++) {
-				Gizmos.color = Color.green;
-				if (gizmoPath [i].isJumping) {
-					Gizmos.color = Color.red;
-				}
-				Gizmos.DrawSphere (gizmoPath [i].worldPosition, 0.3f);
+			for (int i = 0; i < gizmoPath.Length; i++) {
+				Gizmos.color = Color.grey;
+				//if (gizmoPath [i].jumpThrough) {
+					Gizmos.DrawSphere (gizmoPath [i].worldPosition, 0.3f);	
+				//}
+
 			}
 		}
+
 	}
-*/
+//*/
+
+
 
 	public struct PathWay {
 		public Vector2 worldPosition;
 		public bool isJumping;
+		public bool jumpThrough;
 
-		public PathWay(Vector2 position, bool jump){
+		public PathWay(Vector2 position, bool jump, bool through){
 			worldPosition = position;
+			jumpThrough = through;
 			isJumping = jump;
+			if(through){
+				jump = true;
+			}
 		}
 
 
