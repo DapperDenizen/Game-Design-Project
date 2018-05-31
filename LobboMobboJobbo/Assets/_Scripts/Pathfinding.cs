@@ -26,7 +26,6 @@ public class Pathfinding : MonoBehaviour {
 		bool pathSuccess = false;
 		Waypoint startingPoint = handler.PointFromWorldPosition (start);
 		Waypoint targetPoint = handler.PointFromWorldPosition (target);
-		print ("i am at "+ start +" pathfinding thinks im at "+ startingPoint.worldPosition +" i want to go to "+ target + " Pathfinding thinks that is "+ targetPoint.worldPosition);
 
 		Heap<Waypoint> openSet = new Heap<Waypoint> (handler.wayPointSize); //to be evaluated
 		HashSet<Waypoint> closedSet = new HashSet<Waypoint> ();	//already evaluated

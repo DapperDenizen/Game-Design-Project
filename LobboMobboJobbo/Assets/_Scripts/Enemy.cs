@@ -13,7 +13,10 @@ public class Enemy : Unit {
 	//Pathfinding
 	public Pathfinding.PathWay[] path; // this is the path we are following
 	public Pathfinding.PathWay currentTarget;
+	Vector2 targetPlace;
 	int currentIndex;
+	bool pathRequested = false;
+	bool pathInProgress = false;
 	//references
 	GameObject player;
 	//override means i am using this Start() not the parent(unit)'s start, but calling base.start() means i call it as well
@@ -21,38 +24,40 @@ public class Enemy : Unit {
 		base.Start ();
 		player = GameObject.FindGameObjectWithTag ("Player"); //this is the guy we hate
 		yOffset = GetComponent<BoxCollider2D>().bounds.extents.y;
+		targetPlace = player.transform.position;
 	
 	}
-	void Update(){
-		//check if close enough
-		/*if (Vector2.Distance (transform.position, player.transform.position) > weapon.GetComponent<WeaponController> ().weaponReach) {
-			// not close enough
-			StartPath (player.transform.position);
-		} else {
-			//close enough
 
-			//for testing purposes we dont have a weapon
-			print("~ ~ oo im gunna get you! you better be scared! boogedy boogedy boo ~ ~");
-			//AttackPrimary(player.transform.position);
-		} */
-		if (Input.GetKeyUp (KeyCode.J)) {
-			StartPath (player.transform.position);
+	void FixedUpdate(){
+		//check if close enough -> change 2f to be the weapon reach
+		if (Vector2.Distance (transform.position, player.transform.position) > 2f) {
+			print ("attack");
 		}
-
+		if (!pathRequested && !pathInProgress) {
+			PathRequestManager.RequestPath (transform.position, player.transform.position,OnPathFound);
+		}
+		if (pathInProgress && Vector2.Distance (player.transform.position, targetPlace) > 3f) {
+			PathRequestManager.RequestPath (transform.position, player.transform.position,OnPathFound);
+		}
 	}
 
 	void StartPath(Vector2 targetGoal){
-	
+		pathRequested = true;
 		PathRequestManager.RequestPath (transform.position, targetGoal, OnPathFound);
 
 	}
 
 	virtual public void OnPathFound(Pathfinding.PathWay[] newPath, bool pathSuccess){
-
+		pathRequested = false;
 		if (pathSuccess) {
+			if (newPath.Length > 0) {
+				targetPlace = newPath [newPath.Length - 1].worldPosition;
+			}
 			path = newPath;
 			StopCoroutine ("FollowPath");
+			pathInProgress = false;
 			StartCoroutine ("FollowPath");
+
 		
 		}
 
@@ -61,6 +66,7 @@ public class Enemy : Unit {
 
 	IEnumerator FollowPath(){
 		//initialise
+		pathInProgress = true;
 		int currentIndex = 0;
 		bool unFinishedJump = false;
 		//loop
@@ -69,7 +75,6 @@ public class Enemy : Unit {
 				//check if jumping
 				if(path[currentIndex].isJumping){
 					//connection is jump type
-					Debug.Log(transform.position.y+" < "+path[currentIndex+1].worldPosition.y);
 					if(transform.position.y < path[currentIndex+1].worldPosition.y || !grounded){
 						//not dropping
 						if (grounded) {
@@ -84,7 +89,7 @@ public class Enemy : Unit {
 					currentIndex++;
 				}
 			}
-			if (currentIndex > path.Length -1) { print ("done");break; }
+			if (currentIndex > path.Length -1) { print ("done");pathInProgress = false;break; }
 			//x direction
 			if (Mathf.Abs (transform.position.x - path [currentIndex].worldPosition.x) > 1f ) {
 				if (transform.position.x < path [currentIndex].worldPosition.x) {

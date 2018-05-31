@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class CrabManager : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+	List<GameObject> crabs;
+
+	public void whatDoIdo(){
 	
-	// Update is called once per frame
-	void Update () {
-		
+	
 	}
+
+
 }
