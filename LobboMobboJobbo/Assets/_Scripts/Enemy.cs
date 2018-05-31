@@ -30,12 +30,12 @@ public class Enemy : Unit {
 
 	void FixedUpdate(){
 		//check if close enough -> change 2f to be the weapon reach
-		if (Vector2.Distance (transform.position, player.transform.position) > 2f) {
+		if (Vector2.Distance (transform.position, player.transform.position) < 2f) {
 			print ("attack");
-		}
+		}else
 		if (!pathRequested && !pathInProgress) {
 			PathRequestManager.RequestPath (transform.position, player.transform.position,OnPathFound);
-		}
+			}else
 		if (pathInProgress && Vector2.Distance (player.transform.position, targetPlace) > 3f) {
 			PathRequestManager.RequestPath (transform.position, player.transform.position,OnPathFound);
 		}
@@ -52,12 +52,12 @@ public class Enemy : Unit {
 		if (pathSuccess) {
 			if (newPath.Length > 0) {
 				targetPlace = newPath [newPath.Length - 1].worldPosition;
+			
+				path = newPath;
+				StopCoroutine ("FollowPath");
+				pathInProgress = false;
+				StartCoroutine ("FollowPath");
 			}
-			path = newPath;
-			StopCoroutine ("FollowPath");
-			pathInProgress = false;
-			StartCoroutine ("FollowPath");
-
 		
 		}
 
