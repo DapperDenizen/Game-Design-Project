@@ -65,9 +65,11 @@ public class Pathfinding : MonoBehaviour {
 		}
 		yield return null;
 		if (pathSuccess) {
-		
 			pathPoints = RetracePath (startingPoint, targetPoint);
-			gizmoPath = pathPoints;
+			if (pathPoints.Length <= 1) {
+				print ("UH OH SPEGGETTI Os");
+			}
+			//gizmoPath = pathPoints;
 		}
 		requestManager.FinishedProcessingPath (pathPoints, pathSuccess);
 
@@ -102,7 +104,7 @@ public class Pathfinding : MonoBehaviour {
 	}
 
 
- void OnDrawGizmos() {
+ /*void OnDrawGizmos() {
 		if (gizmoPath.Length != null) {
 			for (int i = 0; i < gizmoPath.Length; i++) {
 				Gizmos.color = Color.grey;

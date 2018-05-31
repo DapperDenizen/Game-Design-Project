@@ -18,7 +18,7 @@ public class PathRequestManager : MonoBehaviour {
 		pathfinding = GetComponent<Pathfinding> ();
 
 	}
-
+		
 	//request path
 	public static void RequestPath(Vector2 pathStart, Vector2 pathEnd, Action<Pathfinding.PathWay[],bool> callback){
 
