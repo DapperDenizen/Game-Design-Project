@@ -17,8 +17,11 @@ public class Enemy : Unit {
 	int currentIndex;
 	bool pathRequested = false;
 	bool pathInProgress = false;
-	public int debug_PATHFINDING_CALL =0;
-
+	//public int debug_PATHFINDING_CALL =0;
+	//dumb things
+	public bool stacking;
+	public GameObject buddy; //this is the crab you're sitting on
+	float stackOffset;
 	//DEBUG ENUM
 	//public enum resetType {noAction, targetElseWhere, none, finishedPrevious};
 
@@ -31,11 +34,16 @@ public class Enemy : Unit {
 		player = GameObject.FindGameObjectWithTag ("Player"); //this is the guy we hate
 		yOffset = GetComponent<BoxCollider2D>().bounds.extents.y;
 		targetPlace = player.transform.position;
+		if (stacking) {
+			stackOffset = buddy.GetComponent<BoxCollider2D> ().bounds.extents.y+this.GetComponent<BoxCollider2D>().bounds.extents.y;
+			Physics2D.IgnoreCollision (this.GetComponent<BoxCollider2D>(),buddy.GetComponent<BoxCollider2D> ());
+			rb2d.gravityScale = 0;
+		}
 	
 	}
 
 	void FixedUpdate(){
-		if (!pathRequested) {
+		if (!pathRequested && !stacking) {
 			if (Vector2.Distance (transform.position, player.transform.position) < 2.1f) {
 				//attack or maybe move directly to that position
 
@@ -43,12 +51,20 @@ public class Enemy : Unit {
 			} else if (!pathInProgress) {
 				StartPath (player.transform.position);
 				pathRequested = true;
-			} else if(Vector2.Distance (targetPlace, player.transform.position) > 4.5f){
+			} else if (Vector2.Distance (targetPlace, player.transform.position) > 4.5f) {
 
 				StartPath (player.transform.position);
 				pathRequested = true;
 			}
 
+		} else if (stacking) {
+		//check buddys not dead
+			if (buddy.activeInHierarchy) {
+				transform.position = new Vector2 (buddy.transform.position.x,buddy.transform.position.y+stackOffset); 
+			} else {
+				stacking = false;
+				rb2d.gravityScale = 1;
+			}
 		}
 	}
 
@@ -57,7 +73,7 @@ public class Enemy : Unit {
 			targetPlace = targetGoal;
 			pathRequested = true;
 			PathRequestManager.RequestPath (transform.position, targetGoal, OnPathFound);
-			debug_PATHFINDING_CALL++;
+			//debug_PATHFINDING_CALL++;
 		}
 	}
 
