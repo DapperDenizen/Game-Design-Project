@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UnitController : MonoBehaviour {
 	//
-	public  enum State  {stunned,fine};
+	public  enum State  {stunned,fine,spawning};
 	//stats
 	public float maxHealth;
 	public float stunTime;
@@ -17,7 +17,7 @@ public class UnitController : MonoBehaviour {
 	public Animator anim;
 	public SpriteRenderer sprite;
 	//variables
-	State state = State.fine;
+	public State state = State.fine;
 	public bool grounded = false;
 	private float recoilTimer = 0.3f;
 	int xDirection; // x direction is the current direction we are facing
@@ -39,6 +39,9 @@ public class UnitController : MonoBehaviour {
 		
 		if (collision.gameObject.layer == groundLayer) {
 			HitGround ();
+			if (state == State.spawning) {
+				state = State.fine;
+			}
 		}
 	}
 
