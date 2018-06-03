@@ -180,7 +180,7 @@ public class WaypointHandler : MonoBehaviour {
 
 
 
-	/*void OnDrawGizmos() {
+	void OnDrawGizmos() {
 		for(int i = 0; i < waypoints.Length-1; i++){
 			Gizmos.color = Color.red;
 			Gizmos.DrawSphere (waypoints [i].worldPosition, 0.3f);

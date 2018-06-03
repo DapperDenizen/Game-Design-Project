@@ -5,7 +5,7 @@ using UnityEngine;
 public class attackTrigger : MonoBehaviour {
 
     public float power = 5f;
-	public float knock = 10f;
+	public float knock = 5f;
 	private float powerTimer = 0.5f;
 
     void Update(){

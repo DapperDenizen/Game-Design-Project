@@ -78,6 +78,7 @@ public class PlayerControl : UnitController {
 
 
 	}
+
 	IEnumerator CallAttack(string attack){
 		if (Camera.main.ScreenToWorldPoint (Input.mousePosition).x > transform.position.x) {
 			rotateSprite (false);

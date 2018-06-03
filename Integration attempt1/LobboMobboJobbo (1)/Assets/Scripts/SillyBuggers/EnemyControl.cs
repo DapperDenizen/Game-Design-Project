@@ -168,7 +168,7 @@ public class EnemyControl : UnitController {
 
 			print ("hit him");
 			//x,y = pushback z = damage
-			Vector3 info = new Vector3 (transform.position.x < player.transform.position.x ? -knock : knock,1f,dam);
+			Vector3 info = new Vector3 (transform.position.x < player.transform.position.x ? knock : -knock,1f,dam);
 
 			other.SendMessageUpwards("Hit",info);
 		}

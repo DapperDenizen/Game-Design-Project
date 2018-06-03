@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitController : MonoBehaviour {
-
+	//
+	public  enum State  {stunned,fine};
 	//stats
 	public float maxHealth;
 	private float health;
@@ -16,6 +17,7 @@ public class UnitController : MonoBehaviour {
 	public Animator anim;
 	public SpriteRenderer sprite;
 	//variables
+	State state = State.fine;
 	public bool grounded = false;
 	private float recoilTimer = 0.3f;
 	int xDirection; // x direction is the current direction we are facing
@@ -58,7 +60,9 @@ public class UnitController : MonoBehaviour {
 			OnDeath ();
 		}
 		KnockBack (new Vector2(info.x,info.y));
-		Recoiled ();
+		if (state == State.fine) {
+			Recoiled ();
+		}
 	}
 
 	public void Recoiled(){
@@ -73,10 +77,12 @@ public class UnitController : MonoBehaviour {
 	}
 
 	IEnumerator WaitForRecoil(){
-
+		state = State.stunned;
 		yield return null;
 
 		yield return new WaitForSecondsRealtime (1f);
+		state = State.fine;
+		//print ("end");
 
 	}
 
@@ -107,7 +113,9 @@ public class UnitController : MonoBehaviour {
 		if (!grounded && direction.y < 0) {
 			rb2d.gravityScale = 3f;
 		}
-		rb2d.velocity = direction;
+		if (state == State.fine) {
+			rb2d.velocity = direction;
+		}
 	}
 
 	//jumping functions

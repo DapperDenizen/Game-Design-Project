@@ -609,8 +609,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1751882234627004}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.46, y: -3.48, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 9.34, y: -2.36, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4253273219416038}
@@ -761,8 +761,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27084f0cd9d80284fb5ba16ec05cf5fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
-  jumpVel: 7
+  maxHealth: 200
+  jumpVel: 10
   walkSpeed: 3
   rb2d: {fileID: 0}
   groundLayer:
@@ -772,6 +772,8 @@ MonoBehaviour:
   anim: {fileID: 0}
   sprite: {fileID: 0}
   grounded: 0
+  knock: 5
+  dam: 0
   stacking: 0
   buddy: {fileID: 0}
   crabGore: {fileID: 1025272624435236, guid: 67c0a2180e24f7443a60d6d60cb8e633, type: 2}
