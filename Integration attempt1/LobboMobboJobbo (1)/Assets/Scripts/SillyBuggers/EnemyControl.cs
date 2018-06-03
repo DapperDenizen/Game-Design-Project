@@ -20,6 +20,7 @@ public class EnemyControl : UnitController {
 	bool pathRequested = false;
 	bool pathInProgress = false;
 	//dumb things
+	public int strength; // used for spawning AI
 	public bool stacking;
 	public GameObject buddy; //this is the crab you're sitting on
 	float stackOffset;
@@ -27,6 +28,7 @@ public class EnemyControl : UnitController {
 	//references
 	GameObject player;
 	public GameObject crabGore;
+	//public CrabController controller;
 	//
 
 	//override means i am using this Start() not the parent(unit)'s start, but calling base.start() means i call it as well
@@ -37,7 +39,7 @@ public class EnemyControl : UnitController {
 		targetPlace = player.transform.position;
 		if (stacking) {
 			stackOffset = buddy.GetComponent<BoxCollider2D> ().bounds.extents.y+this.GetComponent<BoxCollider2D>().bounds.extents.y;
-			Physics2D.IgnoreCollision (this.GetComponent<BoxCollider2D>(),buddy.GetComponent<BoxCollider2D> ());
+			this.GetComponent<BoxCollider2D> ().enabled = false;
 			rb2d.gravityScale = 0;
 		}
 
@@ -61,9 +63,12 @@ public class EnemyControl : UnitController {
 
 			} else if (stacking) {
 				//check buddys not dead
-				if (buddy.activeInHierarchy) {
+				if (buddy != null) {
 					transform.position = new Vector2 (buddy.transform.position.x, buddy.transform.position.y + stackOffset); 
+					sprite.transform.localScale = new Vector3 (buddy.GetComponent<EnemyControl> ().sprite.transform.localScale.x*-1,1,1);
+
 				} else {
+					this.GetComponent<BoxCollider2D> ().enabled = true;
 					stacking = false;
 					rb2d.gravityScale = 1;
 				}
@@ -95,7 +100,11 @@ public class EnemyControl : UnitController {
 		}
 
 	}
-
+	override public void Recoiled(){
+		if (!stacking) {
+			base.Recoiled ();
+		}
+	}
 
 	IEnumerator FollowPath(){
 		//initialise
@@ -121,7 +130,7 @@ public class EnemyControl : UnitController {
 					currentIndex++;
 				}
 			}
-			if (currentIndex > path.Length -1) {print ("done");pathInProgress = false;break; }
+			if (currentIndex > path.Length -1) {pathInProgress = false;break; }
 			//x direction
 			if (Mathf.Abs (transform.position.x - path [currentIndex].worldPosition.x) > 1f ) {
 				if (transform.position.x < path [currentIndex].worldPosition.x) {
@@ -153,6 +162,8 @@ public class EnemyControl : UnitController {
 	override public void OnDeath(){
 	//spew meat
 		GameObject crabBits = Instantiate(crabGore,transform.position,Quaternion.Euler(0,0,0));
+	//tell somone about it
+		//controller.IAmDead(this.gameObject);
 	// & die
 		base.OnDeath();
 	}
@@ -165,8 +176,6 @@ public class EnemyControl : UnitController {
 		if (other.gameObject.tag == "HitBox")
 		{
 			anim.SetBool("Attacking",true);
-
-			print ("hit him");
 			//x,y = pushback z = damage
 			Vector3 info = new Vector3 (transform.position.x < player.transform.position.x ? knock : -knock,1f,dam);
 

@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4456021322577450}
   - component: {fileID: 212529664706313540}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: Weapon
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4144234651579524}
   - component: {fileID: 212669382326179048}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: Claw
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -52,7 +52,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4155659157467776}
   - component: {fileID: 212858793811459632}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: LobsterRLegLower3
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -68,7 +68,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4394578893209258}
   - component: {fileID: 212855903225601796}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: LobsterLLegLower2
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4864761785604242}
   - component: {fileID: 212483340911575702}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: LobsterRLegUpper3
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4733660735927952}
   - component: {fileID: 212524610306040744}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: Claw
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4586007884777636}
   - component: {fileID: 212629150970906734}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: LobsterLLegUpper1
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4511194556116990}
   - component: {fileID: 212692576937640478}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: LobsterLLowerArm
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4860701716446510}
   - component: {fileID: 212461907110235154}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: LobsterRLegLower1
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 4425836842152982}
   - component: {fileID: 61966326554836926}
   - component: {fileID: 114848250081234288}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: AttackTrigger
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4853473475449912}
   - component: {fileID: 212562127715418370}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: LobsterUpperArm
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -197,7 +197,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4415382415420480}
   - component: {fileID: 212395037656959718}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: LobsterRLegUpper2
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4078367542645112}
   - component: {fileID: 212247168719600768}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: LobsterRLegUpper1
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -229,7 +229,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4342488127289772}
   - component: {fileID: 212011165077869836}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: LobsterLLegLower1
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 4713256972939494}
   - component: {fileID: 95977262684161502}
   - component: {fileID: 61494398062130542}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: LobsterRig
   m_TagString: HitBox
   m_Icon: {fileID: 0}
@@ -262,7 +262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4948256456282994}
   - component: {fileID: 212089280776159400}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: LobsterRLowerArm
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 114410929616401268}
   m_Layer: 9
   m_Name: Player (2)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 4035305776005340}
   - component: {fileID: 120584466491615606}
   - component: {fileID: 114621677811139062}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: LaserSpawn
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -313,7 +313,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4089481402322968}
   - component: {fileID: 212572194216290786}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: LobsterRLegLower2
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -329,7 +329,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4382778509737480}
   - component: {fileID: 212924794464830388}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: LobsterUpperArm
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -345,7 +345,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4035719156811704}
   - component: {fileID: 212746818565573946}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: LobsterLLegUpper2
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -361,7 +361,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4608295688825810}
   - component: {fileID: 212048846420300728}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: LobsterBody
   m_TagString: HitBox
   m_Icon: {fileID: 0}
@@ -799,13 +799,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1
+  stunTime: 0.3
   jumpVel: 7
   walkSpeed: 5
   rb2d: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 0
-  col: {fileID: 0}
   anim: {fileID: 0}
   sprite: {fileID: 0}
   grounded: 0
@@ -836,6 +836,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   power: 5
+  knock: 5
 --- !u!120 &120584466491615606
 LineRenderer:
   m_ObjectHideFlags: 1

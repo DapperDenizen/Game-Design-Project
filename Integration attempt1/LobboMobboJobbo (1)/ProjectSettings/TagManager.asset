@@ -22,11 +22,11 @@ TagManager:
   - 
   - Ground
   - Player
+  - pHitBox
   - Enemy
-  - Weapon
-  - Resource
-  - Hitbox
-  - Wall
+  - eHitbox
+  - Resources
+  - 
   - 
   - 
   - 

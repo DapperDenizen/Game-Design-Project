@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4394000371396254}
   - component: {fileID: 212495326772078176}
   - component: {fileID: 70421959434271508}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ThornSprite
   m_TagString: projectile
   m_Icon: {fileID: 0}
@@ -37,9 +37,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4767475592222584}
   - component: {fileID: 114737106014942992}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Thorn
-  m_TagString: Untagged
+  m_TagString: projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,8 +127,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1912903433
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 07c1140ce012846b49828f7f8aaeec67, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

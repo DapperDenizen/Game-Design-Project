@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 61356932404790880}
   - component: {fileID: 70064473390974002}
   - component: {fileID: 114160012513503492}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: CrabPiece
   m_TagString: Resource
   m_Icon: {fileID: 0}

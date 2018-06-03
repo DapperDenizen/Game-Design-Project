@@ -8,6 +8,7 @@ public class MeatScript : MonoBehaviour {
 	void Start(){
 		rb2d = GetComponent<Rigidbody2D>();
 		rb2d.velocity = explosionVector;
+		Invoke ("TimeOut", 15f);
 	}
 
 	//should we add some squelching sounds when it hits the ground for the first time?
@@ -21,5 +22,13 @@ public class MeatScript : MonoBehaviour {
 			// & die
 			GameObject.Destroy (this.gameObject);
 		}
+	}
+	void TimeOut(){
+	
+		//play some kind of sound
+
+		// & die
+		GameObject.Destroy (this.gameObject);
+	
 	}
 }

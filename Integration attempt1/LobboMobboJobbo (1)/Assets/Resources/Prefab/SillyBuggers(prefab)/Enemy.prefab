@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4176250941809978}
   - component: {fileID: 212080508583988630}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: LeftArmClaw1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4757044577909936}
   - component: {fileID: 212148634078192710}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: RightLegUpper3
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   - component: {fileID: 4253273219416038}
   - component: {fileID: 95268999276181174}
   - component: {fileID: 70776906783165234}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: CrabRig
   m_TagString: HitBox
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4282987275919512}
   - component: {fileID: 212879225275617170}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: LeftLegLower3
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4695094668738198}
   - component: {fileID: 212991500302213972}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: RightLegUpper2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4931905382646834}
   - component: {fileID: 212204634460594512}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: LeftLegUpper1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4138374763322448}
   - component: {fileID: 212146406751940786}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: RightArmClaw2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4076918216228538}
   - component: {fileID: 212539210480172108}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: LeftLegUpper2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4661409369512664}
   - component: {fileID: 212770343641619456}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: RightLegUpper1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4272196036535718}
   - component: {fileID: 212099667304744588}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: CrabBody
   m_TagString: HitBox
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4108039127355864}
   - component: {fileID: 212782292577059190}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: RightArmClaw1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -197,7 +197,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4525547281495006}
   - component: {fileID: 212223130943437206}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: LeftArmClaw2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4652493263901200}
   - component: {fileID: 212456196696213614}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: LeftLegLower2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -229,7 +229,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4052193905045928}
   - component: {fileID: 212617449436394784}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: RightLowerArm
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -245,7 +245,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4326415071840712}
   - component: {fileID: 212572017668762760}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: LeftLegLower1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 50826682160063480}
   - component: {fileID: 61136926468058554}
   - component: {fileID: 114680316677993780}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -279,7 +279,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4071668885680184}
   - component: {fileID: 212813143951686632}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: LeftLegUpper3
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -295,7 +295,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4825909022135910}
   - component: {fileID: 212478395156009138}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: LeftArmJoint
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -311,7 +311,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4738992927196048}
   - component: {fileID: 212743460237240594}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: RightLegLower3
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -327,7 +327,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4594459382518782}
   - component: {fileID: 212207991504228602}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: RightLegLower2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4569853010232530}
   - component: {fileID: 212017351158187510}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: RightLegLower1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -359,7 +359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4685659977595890}
   - component: {fileID: 212782693826607818}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: LeftLowerArm
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -610,7 +610,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1751882234627004}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.34, y: -2.36, z: 0}
+  m_LocalPosition: {x: 7.21, y: -1.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4253273219416038}
@@ -761,19 +761,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27084f0cd9d80284fb5ba16ec05cf5fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 200
+  maxHealth: 10
+  stunTime: 1
+  health: 0
   jumpVel: 10
   walkSpeed: 3
   rb2d: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 0
-  col: {fileID: 0}
   anim: {fileID: 0}
   sprite: {fileID: 0}
   grounded: 0
   knock: 5
-  dam: 0
+  dam: 3
+  strength: 1
   stacking: 0
   buddy: {fileID: 0}
   crabGore: {fileID: 1025272624435236, guid: 67c0a2180e24f7443a60d6d60cb8e633, type: 2}

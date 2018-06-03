@@ -7,13 +7,13 @@ public class UnitController : MonoBehaviour {
 	public  enum State  {stunned,fine};
 	//stats
 	public float maxHealth;
-	private float health;
+	public float stunTime;
+	public float health;
 	public float jumpVel;
 	public float walkSpeed;
 	//references
 	public Rigidbody2D rb2d;
 	public LayerMask groundLayer;
-	public Collider2D col;
 	public Animator anim;
 	public SpriteRenderer sprite;
 	//variables
@@ -26,7 +26,6 @@ public class UnitController : MonoBehaviour {
 	//initialiser
 	virtual public void Start(){
 		rb2d = GetComponent<Rigidbody2D>();
-		col = GetComponent<Collider2D>();
 		groundLayer = LayerMask.NameToLayer ("Ground");	
 		anim = GetComponentInChildren<Animator> ();
 		sprite =  GetComponentInChildren<SpriteRenderer>();
@@ -53,6 +52,7 @@ public class UnitController : MonoBehaviour {
 	//called when hit by weapon
 	//the vector 3 is a vector 2 of the knockback velocity/direction (x,y) and the damage of the weapon (z)
 	virtual public void Hit(Vector3 info){
+		print ("im hit");
 		//remove health
 		health = health - info.z;
 		if (health <= 0) {
@@ -65,7 +65,7 @@ public class UnitController : MonoBehaviour {
 		}
 	}
 
-	public void Recoiled(){
+	virtual public void Recoiled(){
 		
 		StartCoroutine (WaitForRecoil ());
 
@@ -80,7 +80,7 @@ public class UnitController : MonoBehaviour {
 		state = State.stunned;
 		yield return null;
 
-		yield return new WaitForSecondsRealtime (1f);
+		yield return new WaitForSecondsRealtime (stunTime);
 		state = State.fine;
 		//print ("end");
 
