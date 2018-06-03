@@ -10,6 +10,8 @@ public class EnemyControl : UnitController {
 	int xIntention = 0; //intended movement on the x axis,can be 1, 0 or -1
 	float yIntention = 0; //intended movement on the y axis,can be 1, 0 or -1
 	float yOffset =0;
+	public float knock = 5f; // this is the knock back strength
+	public float dam;
 	//Pathfinding
 	public Pathfinding.PathWay[] path; // this is the path we are following
 	public Pathfinding.PathWay currentTarget;
@@ -45,7 +47,7 @@ public class EnemyControl : UnitController {
 		if (player != null) {
 			if (!pathRequested && !stacking) {
 				if (Vector2.Distance (transform.position, player.transform.position) < 2.1f) {
-					//attack or maybe move directly to that position
+					//attack animation plays
 
 
 				} else if (!pathInProgress) {
@@ -162,13 +164,22 @@ public class EnemyControl : UnitController {
 	{
 		if (other.gameObject.tag == "HitBox")
 		{
-			other.SendMessageUpwards("Hit", 1f);
+			anim.SetBool("Attacking",true);
+
+			print ("hit him");
+			//x,y = pushback z = damage
+			Vector3 info = new Vector3 (transform.position.x < player.transform.position.x ? -knock : knock,1f,dam);
+
+			other.SendMessageUpwards("Hit",info);
 		}
 	}
-
-	void Attack(){
-		anim.SetBool("Attacking",true);
-		anim.SetBool("Attacking",false);
+	private void OnTriggerExit2D(Collider2D other)
+	{
+		if (other.gameObject.tag == "HitBox")
+		{
+			anim.SetBool("Attacking",false);
+		}
 	}
+		
 	//*/
 }

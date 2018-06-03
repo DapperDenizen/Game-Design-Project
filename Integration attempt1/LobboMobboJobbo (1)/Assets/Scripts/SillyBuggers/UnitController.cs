@@ -49,15 +49,15 @@ public class UnitController : MonoBehaviour {
 		
 	}
 	//called when hit by weapon
-	virtual public void Hit(float damage){
-		//knockback (inplement later) -> either get the position of the trigger or pass through the knockback
-
+	//the vector 3 is a vector 2 of the knockback velocity/direction (x,y) and the damage of the weapon (z)
+	virtual public void Hit(Vector3 info){
 		//remove health
-		health = health - damage;
+		health = health - info.z;
 		if (health <= 0) {
 			print ("Im dead");
 			OnDeath ();
 		}
+		KnockBack (new Vector2(info.x,info.y));
 		Recoiled ();
 	}
 
@@ -67,11 +67,16 @@ public class UnitController : MonoBehaviour {
 
 	}
 
+	virtual public void KnockBack(Vector2 vector){
+		rb2d.velocity = vector;
+		//print (rb2d.velocity);
+	}
+
 	IEnumerator WaitForRecoil(){
 
 		yield return null;
 
-		yield return new WaitForSecondsRealtime (0.2f);
+		yield return new WaitForSecondsRealtime (1f);
 
 	}
 

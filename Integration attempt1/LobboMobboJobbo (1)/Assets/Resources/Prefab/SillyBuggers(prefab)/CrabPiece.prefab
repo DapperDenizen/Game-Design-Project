@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 212324374839812920}
   - component: {fileID: 50337505843615442}
   - component: {fileID: 61356932404790880}
-  - component: {fileID: 114160012513503492}
   - component: {fileID: 70064473390974002}
+  - component: {fileID: 114160012513503492}
   m_Layer: 12
   m_Name: CrabPiece
   m_TagString: Resource
@@ -98,7 +98,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.024278043, y: -0.02883014}
@@ -115,6 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cb479ef8818497408ead64876614f59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionVector: {x: 0, y: 0}
 --- !u!212 &212324374839812920
 SpriteRenderer:
   m_ObjectHideFlags: 1

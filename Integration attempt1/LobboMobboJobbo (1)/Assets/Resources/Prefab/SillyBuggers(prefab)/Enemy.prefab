@@ -774,7 +774,7 @@ MonoBehaviour:
   grounded: 0
   stacking: 0
   buddy: {fileID: 0}
-  crabMeat: {fileID: 0}
+  crabGore: {fileID: 1025272624435236, guid: 67c0a2180e24f7443a60d6d60cb8e633, type: 2}
 --- !u!212 &212017351158187510
 SpriteRenderer:
   m_ObjectHideFlags: 1
