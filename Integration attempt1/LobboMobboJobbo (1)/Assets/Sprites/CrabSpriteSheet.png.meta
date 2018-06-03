@@ -1,0 +1,356 @@
+fileFormatVersion: 2
+guid: a4e0f144dacda4165bd8a7cbc30bd37e
+timeCreated: 1527722976
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: CrabBody
+    21300002: RightArmClaw1
+    21300004: RightArmClaw2
+    21300006: RightLowerArm
+    21300008: LeftArmClaw1
+    21300010: LeftArmClaw2
+    21300012: LeftArmJoint
+    21300014: LeftLowerArm
+    21300016: LeftLegLower1
+    21300018: LeftLegUpper1
+    21300020: RightLegUpper1
+    21300022: RightLegLower1
+    21300024: LeftLegUpper2
+    21300026: RightLegUpper2
+    21300028: LeftLegLower2
+    21300030: LeftLegUpper3
+    21300032: RightLegUpper3
+    21300034: RightLegLower2
+    21300036: LeftLegLower3
+    21300038: RightLegLower3
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 512
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 512
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: CrabBody
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 797
+        width: 195
+        height: 135
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RightArmClaw1
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 848
+        width: 71
+        height: 60
+      alignment: 9
+      pivot: {x: 0.94989747, y: 0.076516725}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RightArmClaw2
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 845
+        width: 66
+        height: 66
+      alignment: 9
+      pivot: {x: 0.9289828, y: 0.071017176}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RightLowerArm
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 792
+        width: 64
+        height: 45
+      alignment: 9
+      pivot: {x: 0.10298443, y: 0.14508057}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: LeftArmClaw1
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 662
+        width: 155
+        height: 98
+      alignment: 9
+      pivot: {x: 0.8561151, y: 0.2762937}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: LeftArmClaw2
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 645
+        width: 119
+        height: 131
+      alignment: 9
+      pivot: {x: 0.872347, y: 0.10207222}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: LeftArmJoint
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 549
+        width: 76
+        height: 77
+      alignment: 9
+      pivot: {x: 0.76795226, y: 0.26336828}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: LeftLowerArm
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 558
+        width: 111
+        height: 52
+      alignment: 9
+      pivot: {x: 0.8862373, y: 0.273272}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: LeftLegLower1
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 407
+        width: 92
+        height: 126
+      alignment: 9
+      pivot: {x: 0.9034352, y: 0.9357208}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: LeftLegUpper1
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 475
+        width: 85
+        height: 58
+      alignment: 9
+      pivot: {x: 0.8911738, y: 0.14003833}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RightLegUpper1
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 476
+        width: 56
+        height: 60
+      alignment: 9
+      pivot: {x: 0.13432203, y: 0.13801575}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RightLegLower1
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 407
+        width: 69
+        height: 128
+      alignment: 9
+      pivot: {x: 0.12227686, y: 0.9363203}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: LeftLegUpper2
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 394
+        width: 94
+        height: 51
+      alignment: 9
+      pivot: {x: 0.9277555, y: 0.18160293}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RightLegUpper2
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 367
+        width: 58
+        height: 81
+      alignment: 9
+      pivot: {x: 0.0963682, y: 0.07960642}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: LeftLegLower2
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 297
+        width: 55
+        height: 97
+      alignment: 9
+      pivot: {x: 0.8095262, y: 0.9036601}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: LeftLegUpper3
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 308
+        width: 60
+        height: 50
+      alignment: 9
+      pivot: {x: 0.8404788, y: 0.14249633}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RightLegUpper3
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 262
+        width: 102
+        height: 71
+      alignment: 9
+      pivot: {x: 0.07574283, y: 0.10033019}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RightLegLower2
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 234
+        width: 85
+        height: 148
+      alignment: 9
+      pivot: {x: 0.08269797, y: 0.94578}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: LeftLegLower3
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 173
+        width: 34
+        height: 96
+      alignment: 9
+      pivot: {x: 0.7503521, y: 0.9167312}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RightLegLower3
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 110
+        width: 96
+        height: 111
+      alignment: 9
+      pivot: {x: 0.0861756, y: 0.9282041}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
