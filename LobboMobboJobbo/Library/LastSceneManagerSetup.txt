@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/testingScene.unity
+- path: Assets/Scenes/RockPool.unity
   isLoaded: 1
   isActive: 1

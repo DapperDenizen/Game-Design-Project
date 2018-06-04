@@ -1,0 +1,272 @@
+fileFormatVersion: 2
+guid: bcb9d52bd6e934f73854898ed5e0cf3d
+timeCreated: 1526706414
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: LobsterBody
+    21300002: LobsterLowerArm
+    21300004: LobsterLLegUpper2
+    21300006: LobsterLLegUpper1
+    21300008: LobsterRLegUpper3
+    21300010: LobsterRLegUpper2
+    21300012: LobsterRLegUpper1
+    21300014: LobsterLLegLower2
+    21300016: LobsterLLegLower1
+    21300018: LobsterRLegLower3
+    21300020: LobsterRLegLower2
+    21300022: LobsterRLegLower1
+    21300024: Claw
+    21300026: LobsterUpperArm
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: LobsterBody
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 299
+        width: 231
+        height: 263
+      alignment: 9
+      pivot: {x: 0.5718506, y: 0.28544563}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: LobsterLowerArm
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 388
+        width: 51
+        height: 73
+      alignment: 9
+      pivot: {x: 0.13300757, y: 0.9266065}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: LobsterLLegUpper2
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 221
+        width: 33
+        height: 50
+      alignment: 9
+      pivot: {x: 0.910623, y: 0.94637144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: LobsterLLegUpper1
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 232
+        width: 33
+        height: 47
+      alignment: 9
+      pivot: {x: 0.9227001, y: 0.9579039}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: LobsterRLegUpper3
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 206
+        width: 24
+        height: 53
+      alignment: 9
+      pivot: {x: 0.10145378, y: 0.94366455}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: LobsterRLegUpper2
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 219
+        width: 24
+        height: 51
+      alignment: 9
+      pivot: {x: 0.10145378, y: 0.96106315}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: LobsterRLegUpper1
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 245
+        width: 60
+        height: 29
+      alignment: 9
+      pivot: {x: 0.028387196, y: 0.8710601}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: LobsterLLegLower2
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 175
+        width: 16
+        height: 41
+      alignment: 9
+      pivot: {x: 0.6992729, y: 0.9471495}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: LobsterLLegLower1
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 184
+        width: 16
+        height: 43
+      alignment: 9
+      pivot: {x: 0.8238182, y: 0.96342576}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: LobsterRLegLower3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 159
+        width: 9
+        height: 41
+      alignment: 9
+      pivot: {x: 0.5442827, y: 0.9568701}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: LobsterRLegLower2
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 171
+        width: 9
+        height: 43
+      alignment: 9
+      pivot: {x: 0.4557173, y: 0.9541573}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: LobsterRLegLower1
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 193
+        width: 12
+        height: 42
+      alignment: 9
+      pivot: {x: 0.5, y: 0.9554814}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Claw
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 259
+        width: 55
+        height: 33
+      alignment: 9
+      pivot: {x: 0.12032304, y: 0.24444765}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: LobsterUpperArm
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 328
+        width: 140
+        height: 90
+      alignment: 9
+      pivot: {x: 0.051765136, y: 0.8482019}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
