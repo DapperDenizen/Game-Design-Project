@@ -7,16 +7,21 @@ public class attackTrigger : MonoBehaviour {
     public float power = 5f;
     public float force = 5f;
 	private float powerTimer = 1f;
-	public float[] attack = new float[3];
+	public Vector3 attack = new Vector3(); //using a vector cause its easier
+
+	//
+	float baseX = 20;//5 w/vel =
+	float baseY = 10;//5 w/vel =
+	//
 
 	public ParticleSystem attackGlow; 
 
 	void Start(){
 		attackGlow = GetComponent<ParticleSystem>();
 
-		attack[0] = 0;
-		attack[1] = power;
-		attack[2] = force;
+		attack.x = baseX;
+		attack.y = baseY; 
+		attack.z = power;
 	}
 
     void Update(){
@@ -27,21 +32,21 @@ public class attackTrigger : MonoBehaviour {
 		if (Input.GetMouseButton(1)) {
 
 			ParticleEffects();
-			attack[0] = 1;
+			attack.x = 5;
 
-			if(force<20){
-				force += force*0.02f;
-				attack[2] = force;
+			if(force<40){
+				force += force*0.03f;
+				attack.y = force;
 			} 
 			if(power<10){
 				power += power*0.02f;
-				attack[1] = 0;
+				attack.z = power;
 			}	
 		} 
 		else if (Input.GetMouseButton(0)) {
-			attack[0] = 0;
-			attack[1] = 5;
-			attack[2] = 20;
+			attack.x = baseX;
+			attack.y = baseY; 
+			attack.z = power;
 
 		} else {
 			resetPower();
@@ -67,7 +72,7 @@ public class attackTrigger : MonoBehaviour {
 		var noise = attackGlow.noise;
 		var emission = attackGlow.emission;
 
-		if(force < 20f) {
+		if(force < 40f) {
 			main.startColor = new Color(240f/255f, 251f/255f, 48f/255f, 0.5f);
 		} else {
 			emission.rateOverTime = 80;
@@ -85,8 +90,8 @@ public class attackTrigger : MonoBehaviour {
 			powerTimer = 1f;
 			power = 5;
 			force = 5;
-			attack[1] = power;
-			attack[2] = force;
+			attack.z = power;
+			attack.y =  force;
 	    }
     }
 
@@ -94,7 +99,11 @@ public class attackTrigger : MonoBehaviour {
     {
 		if (other.gameObject.tag == "HitBox")
         {
-			other.SendMessageUpwards("Hit", attack);
+			int direction = transform.position.x < other.transform.position.x ? 1 : -1;
+			Vector3 toSend = attack;
+			toSend.x = toSend.x * direction;
+			print ("this is it "+ toSend);
+			other.SendMessageUpwards("Hit", toSend);
         }
     }
 

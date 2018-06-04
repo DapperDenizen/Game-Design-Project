@@ -16,6 +16,7 @@ public class Collectable : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D col){
 		if(col.gameObject.tag == "Player"){
+			col.gameObject.GetComponent<PlayerControl> ().crabMeat++;
 			Destroy(this.gameObject);
 		}
 	}

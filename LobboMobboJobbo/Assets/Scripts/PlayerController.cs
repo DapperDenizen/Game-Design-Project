@@ -130,6 +130,8 @@ public class PlayerController : MonoBehaviour {
 
 		oldMoveX = Input.GetAxis("Horizontal");
 
+		//-------------------------------------------------------
+
         //Apply force to player as they fall
 		if(!grounded && rb2d.velocity.y < 0) {
 			rb2d.AddForce(new Vector2(0,-50));
