@@ -28,15 +28,17 @@ public class EnemyControl : UnitController {
 	//references
 	GameObject player;
 	public GameObject crabGore;
-	//public CrabController controller;
+	public BoxCollider2D col;
+	public CrabSpawner Spawner;
 	//Death stuff
 	public GameObject crabMeat;
 	public GameObject[] bodyParts = new GameObject[5];
 	private GameObject blood;
 	//
 	//override means i am using this Start() not the parent(unit)'s start, but calling base.start() means i call it as well
-	override public void Start(){
-		base.Start ();
+	override public void Awake(){
+		base.Awake ();
+		Spawner = GameObject.FindGameObjectWithTag ("GameController").GetComponent<CrabSpawner>();
 		player = GameObject.FindGameObjectWithTag ("Player"); //this is the guy we hate
 		yOffset = GetComponent<BoxCollider2D>().bounds.extents.y;
 		targetPlace = player.transform.position;
@@ -89,7 +91,12 @@ public class EnemyControl : UnitController {
 		}
 	}
 
-	virtual public void CloseEnough(){} //Extend this for the boss!
+	virtual public void CloseEnough(){
+		float xChange;
+		xChange = transform.position.x < player.transform.position.x ? walkSpeed : -walkSpeed;
+
+		MoveUnit(new Vector2(xChange, rb2d.velocity.y));
+	} //Extend this for the boss!
 
 
 
@@ -179,7 +186,6 @@ public class EnemyControl : UnitController {
 		//remove health
 		health = health - info.z;
 		if (health <= 0) {
-			
 			OnDeath (Random.Range(1,3),false);
 		}
 		KnockBack (new Vector2(info.x,info.y));
@@ -193,7 +199,7 @@ public class EnemyControl : UnitController {
 		if(rb2d.velocity.magnitude>35){
 			//do something else?
 			yield return new WaitForSecondsRealtime (0.2f);
-			OnDeath(Random.Range(2,4),true);
+			OnDeath(Random.Range(3,5),true);
 		}
 	}
 
@@ -202,7 +208,7 @@ public class EnemyControl : UnitController {
 	//spew meat
 		Explode(meat,hardDeath);
 	//tell somone about it
-		//controller.IAmDead(this.gameObject);
+		Spawner.IAmDead();
 	// & die
 		base.OnDeath();
 	}
@@ -231,20 +237,28 @@ public class EnemyControl : UnitController {
 		}
 	}
 
+	override public void HitGround(){
+		base.HitGround ();
+		if (state == State.spawning) {
+			state = State.fine;
+		}
+		//rb2d.gravityScale = gravityBase;
+	}
+
 	//Damage Dealers
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		
-		if (other.gameObject.tag == "Player")
-		{
-			anim.SetBool("Attacking",true);
-			//x,y = pushback z = damage
-			Vector3 info = new Vector3 (transform.position.x < player.transform.position.x ? knock : -knock,10f,dam);
+		if (state == State.fine) {
+			if (other.gameObject.tag == "Player") {
+				anim.SetBool ("Attacking", true);
+				//x,y = pushback z = damage
+				Vector3 info = new Vector3 (transform.position.x < player.transform.position.x ? knock : -knock, 10f, dam);
 
-			other.SendMessageUpwards("Hit",info);
-			Vector3 temp = new Vector3 (transform.position.x > player.transform.position.x ? 15 : -15 , 10f,0);
-			Hit (temp);
+				other.SendMessageUpwards ("Hit", info);
+				Vector3 temp = new Vector3 (transform.position.x > player.transform.position.x ? 20 : -20, 15f, 0);
+				Hit (temp);
+			}
 		}
 	}
 	private void OnTriggerExit2D(Collider2D other)

@@ -12,6 +12,7 @@ TagManager:
   - HitBox
   - enemy
   - Walls
+  - Bg
   layers:
   - Default
   - TransparentFX

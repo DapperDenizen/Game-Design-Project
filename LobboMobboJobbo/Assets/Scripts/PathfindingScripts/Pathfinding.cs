@@ -6,7 +6,6 @@ using System;
 public class Pathfinding : MonoBehaviour {
 
 	WaypointHandler handler;
-	Vector2 gizmoME; 
 	PathWay[] gizmoPath = new PathWay[10];
 	PathRequestManager requestManager;
 
@@ -21,7 +20,6 @@ public class Pathfinding : MonoBehaviour {
 	}
 
 	IEnumerator FindPath(Vector2 start, Vector2 target){
-		gizmoME = start;
 		PathWay[] pathPoints = new PathWay[0];
 		bool pathSuccess = false;
 		Waypoint startingPoint = handler.PointFromWorldPosition (start);

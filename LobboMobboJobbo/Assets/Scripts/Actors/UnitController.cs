@@ -27,7 +27,7 @@ public class UnitController : MonoBehaviour {
 	//
 
 	//initialiser
-	virtual public void Start(){
+	virtual public void Awake(){
 		rb2d = GetComponent<Rigidbody2D>();
 		groundLayer = LayerMask.NameToLayer ("Ground");	
 		wallLayer = LayerMask.NameToLayer ("Wall");	
@@ -35,28 +35,33 @@ public class UnitController : MonoBehaviour {
 		sprite =  GetComponentInChildren<SpriteRenderer>();
 		health = maxHealth;
 		xDirection = - Mathf.RoundToInt(sprite.transform.localScale.x);
-		//gravityBase = rb2d.gravityScale;
 	}
 
 
+
+	void OnCollisionEnter2D (Collision2D collision)
+	{
+		if (collision.gameObject.layer == groundLayer) {
+			HitGround ();
+		}
+
+		if(collision.gameObject.layer == wallLayer && state == State.stunned) {
+			Vector3 info = new Vector3 (transform.position.x < collision.transform.position.x ? 20 : -20, 1f, 0);
+			Hit (info);
+		}
+
+	}
 
 	void OnCollisionExit2D (Collision2D collision)
 	{
 		if (collision.gameObject.layer == groundLayer) {
 			LeaveGround ();
 		}
-
-		if(collision.gameObject.layer == wallLayer && state == State.stunned) {
-			Vector3 info = new Vector3 (transform.position.x < collision.transform.position.x ? 20 : -20, 1f, 0);
-			collision.gameObject.SendMessageUpwards ("Hit", info);
-		}
-		
 	}
 
 	//called when hit by weapon
 	//the vector 3 is a vector 2 of the knockback velocity/direction (x,y) and the damage of the weapon (z)
 	virtual public void Hit(Vector3 info){
-		print ("im hit");
 		//remove health
 		health = health - info.z;
 		if (health <= 0) {
@@ -79,8 +84,6 @@ public class UnitController : MonoBehaviour {
 	virtual public void KnockBack(Vector2 vector){
 		rb2d.AddRelativeForce (vector,ForceMode2D.Impulse);
 
-		//rb2d.velocity = vector;
-
 	}
 
 	IEnumerator WaitForRecoil(){
@@ -89,7 +92,6 @@ public class UnitController : MonoBehaviour {
 
 		yield return new WaitForSecondsRealtime (stunTime);
 		state = State.fine;
-		//print ("end");
 
 	}
 
@@ -133,7 +135,6 @@ public class UnitController : MonoBehaviour {
 	//jumping functions
 	 virtual public void HitGround(){
 		grounded = true;
-		rb2d.gravityScale = gravityBase;
 	}
 
 	public void rotateSprite(bool side){

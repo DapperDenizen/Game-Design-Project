@@ -102,7 +102,6 @@ public class attackTrigger : MonoBehaviour {
 			int direction = transform.position.x < other.transform.position.x ? 1 : -1;
 			Vector3 toSend = attack;
 			toSend.x = toSend.x * direction;
-			print ("this is it "+ toSend);
 			other.SendMessageUpwards("Hit", toSend);
         }
     }

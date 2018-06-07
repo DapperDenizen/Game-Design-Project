@@ -17,8 +17,8 @@ public class PlayerControl : UnitController {
 	public GameObject thornPrefab;
 	public GameObject weapon;
 	PlayerAttack pAttack;
-	override public void Start(){
-		base.Start ();
+	override public void Awake(){
+		base.Awake ();
 		stunTime = 0.3f;
 		pAttack = GetComponentInChildren<PlayerAttack> ();
 	}
