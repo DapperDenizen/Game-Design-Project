@@ -22,6 +22,8 @@ public class EnemyControl : UnitController {
 	int currentIndex;
 	bool pathRequested = false;
 	bool pathInProgress = false;
+	int pathFailScore =0;
+	int maxPathAttempt =5;
 	//dumb things
 	public int strength; // used for spawning AI
 	public bool stacking;
@@ -130,7 +132,9 @@ public class EnemyControl : UnitController {
 	virtual public void OnPathFound(Pathfinding.PathWay[] newPath, bool pathSuccess){
 		pathRequested = false;
 		if (pathSuccess && this != null) {
-			if (newPath.Length > 0 ){
+			pathFailScore = 0;
+			if (newPath.Length > 0) {
+
 				if (newPath [newPath.Length - 1].worldPosition != targetPlace) {
 					path = newPath;
 					StopCoroutine ("FollowPath");
@@ -138,6 +142,14 @@ public class EnemyControl : UnitController {
 					pathInProgress = false;
 					StartCoroutine ("FollowPath");
 				}
+			}
+		} else if(!pathSuccess){
+			
+			if (pathFailScore > maxPathAttempt) {
+				float panicMoveX =	transform.position.x < player.transform.position.x ? walkSpeed : -walkSpeed;
+				MoveUnit (new Vector2 (panicMoveX, rb2d.velocity.y));
+			} else {
+				pathFailScore++;
 			}
 		}
 
@@ -227,7 +239,6 @@ public class EnemyControl : UnitController {
 		
 	//return true if we should jump
 	bool NotDropping(Vector2 path){
-		print ("Utilised");
 		if (transform.position.y > path.y) {
 			RaycastHit2D myPlat;
 			RaycastHit2D targetPlat;
