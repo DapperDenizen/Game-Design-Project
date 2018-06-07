@@ -41,7 +41,9 @@ public class EnemyControl : UnitController {
 		Spawner = GameObject.FindGameObjectWithTag ("GameController").GetComponent<CrabSpawner>();
 		player = GameObject.FindGameObjectWithTag ("Player"); //this is the guy we hate
 		yOffset = GetComponent<BoxCollider2D>().bounds.extents.y;
-		targetPlace = player.transform.position;
+		if (player != null) {
+			targetPlace = player.transform.position;
+		}
 		stunTime = 1f;
 		//death stuff
 		crabMeat = Resources.Load("Prefab/CrabMeat")as GameObject;
@@ -91,10 +93,21 @@ public class EnemyControl : UnitController {
 		}
 	}
 
+	void Update(){
+		if (player != null) {
+			if (Vector2.Distance (transform.position, player.transform.position) < 2f) {
+				anim.SetBool ("Attacking", true);
+			} else {
+				anim.SetBool ("Attacking", false);
+			}
+		}
+	}
+
+
+
 	virtual public void CloseEnough(){
 		float xChange;
 		xChange = transform.position.x < player.transform.position.x ? walkSpeed : -walkSpeed;
-
 		MoveUnit(new Vector2(xChange, rb2d.velocity.y));
 	} //Extend this for the boss!
 
@@ -251,23 +264,22 @@ public class EnemyControl : UnitController {
 	{
 		if (state == State.fine) {
 			if (other.gameObject.tag == "Player") {
-				anim.SetBool ("Attacking", true);
 				//x,y = pushback z = damage
 				Vector3 info = new Vector3 (transform.position.x < player.transform.position.x ? knock : -knock, 10f, dam);
 
 				other.SendMessageUpwards ("Hit", info);
-				Vector3 temp = new Vector3 (transform.position.x > player.transform.position.x ? 20 : -20, 15f, 0);
+				Vector3 temp = new Vector3 (transform.position.x > player.transform.position.x ? 25 : -25, 20f, 0);
 				Hit (temp);
 			}
 		}
 	}
-	private void OnTriggerExit2D(Collider2D other)
+	/*private void OnTriggerExit2D(Collider2D other)
 	{
 		if (other.gameObject.tag == "Player")
 		{
 			anim.SetBool("Attacking",false);
 		}
-	}
+	}//*/
 
 
 

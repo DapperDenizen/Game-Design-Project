@@ -15,7 +15,7 @@ public class CrabSpawner : MonoBehaviour {
 	float timeInbetweenKills;
 	int[] toSpawn;
 	//spawn vector variables
-	Vector2 lauchTarget = Vector2.zero;
+	Vector2 lauchTarget = new Vector2(0,5);
 		//lines we want to spawn within
 	float boxXmin;
 	float boxXmax;
@@ -79,7 +79,6 @@ public class CrabSpawner : MonoBehaviour {
 		EnemyControl crabsController;
 		Vector2 direction = GetVector ();
 		Vector2 spawn = GetPoint (lauchTarget, direction);
-		print ("im starting at " + spawn + " going at a speed of " + direction); 
 		switch (type) 
 		{
 
@@ -91,7 +90,7 @@ public class CrabSpawner : MonoBehaviour {
 			crabsController.state = UnitController.State.spawning;
 			Vector2 forceVec = lauchTarget - spawn;
 			forceVec.x = forceVec.x * 5; 
-			forceVec.y = forceVec.y * 10; 
+			forceVec.y = forceVec.y * 20; 
 			crabsController.rb2d.AddRelativeForce(forceVec,ForceMode2D.Impulse);
 			crabNumbers++;
 
@@ -138,7 +137,7 @@ public class CrabSpawner : MonoBehaviour {
 	}
 
 
-	void OnDrawGizmos() {
+	/*void OnDrawGizmos() {
 		Gizmos.color = Color.blue;
 		Gizmos.DrawSphere (new Vector2 (boxXmin-boxOffSet - vecMaxX , 0), 0.3f);
 		Gizmos.color = Color.green;

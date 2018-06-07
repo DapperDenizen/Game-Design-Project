@@ -705,7 +705,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.38, y: -0.4}
+  m_Offset: {x: 0.3, y: -0.36}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -716,7 +716,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.35, y: 1.69}
+  m_Size: {x: 4.35, y: 1.84}
   m_EdgeRadius: 0
 --- !u!70 &70262795770735494
 CapsuleCollider2D:
@@ -730,8 +730,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -2.05, y: -0.14}
-  m_Size: {x: 3.06, y: 1.49}
+  m_Offset: {x: -1.43, y: -0.13}
+  m_Size: {x: 2.18, y: 1.32}
   m_Direction: 1
 --- !u!95 &95778470838104628
 Animator:
@@ -765,7 +765,7 @@ MonoBehaviour:
   stunTime: 1
   health: 0
   jumpVel: 40
-  walkSpeed: 4
+  walkSpeed: 2.5
   rb2d: {fileID: 0}
   groundLayer:
     serializedVersion: 2
@@ -779,7 +779,7 @@ MonoBehaviour:
   grounded: 0
   fallMulti: 3
   gravityBase: 1
-  knock: 20
+  knock: 10
   dam: 5
   strength: 1
   stacking: 0

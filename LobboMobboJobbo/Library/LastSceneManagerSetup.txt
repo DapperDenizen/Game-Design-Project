@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/RockPool.unity
+- path: Assets/Scenes/RockPool_More_Platforms.unity
   isLoaded: 1
   isActive: 1
