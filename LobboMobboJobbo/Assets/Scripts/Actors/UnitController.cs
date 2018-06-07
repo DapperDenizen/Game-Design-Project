@@ -14,6 +14,7 @@ public class UnitController : MonoBehaviour {
 	//references
 	public Rigidbody2D rb2d;
 	public LayerMask groundLayer;
+	public LayerMask wallLayer;
 	public Animator anim;
 	public SpriteRenderer sprite;
 	//variables
@@ -29,6 +30,7 @@ public class UnitController : MonoBehaviour {
 	virtual public void Start(){
 		rb2d = GetComponent<Rigidbody2D>();
 		groundLayer = LayerMask.NameToLayer ("Ground");	
+		wallLayer = LayerMask.NameToLayer ("Wall");	
 		anim = GetComponentInChildren<Animator> ();
 		sprite =  GetComponentInChildren<SpriteRenderer>();
 		health = maxHealth;
@@ -37,21 +39,16 @@ public class UnitController : MonoBehaviour {
 	}
 
 
-	void OnCollisionEnter2D (Collision2D collision)
-	{
-		
-		if (collision.gameObject.layer == groundLayer) {
-			HitGround ();
-			if (state == State.spawning) {
-				state = State.fine;
-			}
-		}
-	}
 
 	void OnCollisionExit2D (Collision2D collision)
 	{
 		if (collision.gameObject.layer == groundLayer) {
 			LeaveGround ();
+		}
+
+		if(collision.gameObject.layer == wallLayer && state == State.stunned) {
+			Vector3 info = new Vector3 (transform.position.x < collision.transform.position.x ? 20 : -20, 1f, 0);
+			collision.gameObject.SendMessageUpwards ("Hit", info);
 		}
 		
 	}
@@ -80,8 +77,10 @@ public class UnitController : MonoBehaviour {
 
 
 	virtual public void KnockBack(Vector2 vector){
-		rb2d.velocity = vector;
-		//print (rb2d.velocity);
+		rb2d.AddRelativeForce (vector,ForceMode2D.Impulse);
+
+		//rb2d.velocity = vector;
+
 	}
 
 	IEnumerator WaitForRecoil(){

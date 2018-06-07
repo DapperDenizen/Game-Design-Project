@@ -56,6 +56,7 @@ public class EnemyControl : UnitController {
 
 	}
 
+
 	void FixedUpdate(){
 		if (player != null) {
 			if (!pathRequested && !stacking) {
@@ -191,7 +192,7 @@ public class EnemyControl : UnitController {
 	IEnumerator CheckForce() {
 		if(rb2d.velocity.magnitude>35){
 			//do something else?
-			yield return new WaitForSecondsRealtime (2f);
+			yield return new WaitForSecondsRealtime (0.2f);
 			OnDeath(Random.Range(2,4),true);
 		}
 	}
@@ -234,22 +235,36 @@ public class EnemyControl : UnitController {
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.gameObject.tag == "HitBox")
+		
+		if (other.gameObject.tag == "Player")
 		{
 			anim.SetBool("Attacking",true);
 			//x,y = pushback z = damage
-			Vector3 info = new Vector3 (transform.position.x < player.transform.position.x ? knock : -knock,1f,dam);
+			Vector3 info = new Vector3 (transform.position.x < player.transform.position.x ? knock : -knock,10f,dam);
 
 			other.SendMessageUpwards("Hit",info);
+			Vector3 temp = new Vector3 (transform.position.x > player.transform.position.x ? 15 : -15 , 10f,0);
+			Hit (temp);
 		}
 	}
 	private void OnTriggerExit2D(Collider2D other)
 	{
-		if (other.gameObject.tag == "HitBox")
+		if (other.gameObject.tag == "Player")
 		{
 			anim.SetBool("Attacking",false);
 		}
 	}
-		
-	//*/
+
+
+
+/*	void OnDrawGizmos() {
+		if(path != null){
+		for (int i = 0; i < path.Length - 1; i++) {
+			Gizmos.color = Color.red;
+			Gizmos.DrawSphere (path [i].worldPosition, 0.2f);
+			Gizmos.color = Color.green;
+		}
+	}
+	} //*/
+
 }
