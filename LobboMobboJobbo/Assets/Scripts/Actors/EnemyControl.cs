@@ -5,7 +5,10 @@ using UnityEngine;
 public class EnemyControl : UnitController {
 
 	Vector2 test = Vector2.zero;
-
+	//DEBUG
+	Vector2 gimzoDebug1;
+	Vector2 gimzoDebug2;
+	//
 	//variables
 	int xIntention = 0; //intended movement on the x axis,can be 1, 0 or -1
 	float yIntention = 0; //intended movement on the y axis,can be 1, 0 or -1
@@ -30,6 +33,7 @@ public class EnemyControl : UnitController {
 	public GameObject crabGore;
 	public BoxCollider2D col;
 	public CrabSpawner Spawner;
+	LayerMask platformMask;
 	//Death stuff
 	public GameObject crabMeat;
 	public GameObject[] bodyParts = new GameObject[5];
@@ -38,6 +42,7 @@ public class EnemyControl : UnitController {
 	//override means i am using this Start() not the parent(unit)'s start, but calling base.start() means i call it as well
 	override public void Awake(){
 		base.Awake ();
+		platformMask = LayerMask.GetMask("Ground");
 		Spawner = GameObject.FindGameObjectWithTag ("GameController").GetComponent<CrabSpawner>();
 		player = GameObject.FindGameObjectWithTag ("Player"); //this is the guy we hate
 		yOffset = GetComponent<BoxCollider2D>().bounds.extents.y;
@@ -154,7 +159,7 @@ public class EnemyControl : UnitController {
 				//check if jumping
 				if(path[currentIndex].isJumping){
 					//connection is jump type
-					if(transform.position.y < path[currentIndex+1].worldPosition.y || !grounded){
+					if(NotDropping(path[currentIndex].worldPosition)){
 						//not dropping
 						if (grounded) {
 							yIntention = jumpVel;
@@ -180,10 +185,14 @@ public class EnemyControl : UnitController {
 				yIntention = jumpVel;
 				unFinishedJump = false;
 			}
+			if (rb2d.velocity.y > 0 && yIntention > 0) {
+				yIntention = 0;
+			}
 			float yChange = rb2d.velocity.y + yIntention;
 			float xChange = xIntention * walkSpeed;
 			yIntention = 0;
 			xIntention = 0;
+
 			if (!unFinishedJump) {
 				MoveUnit (new Vector2 (xChange, yChange));
 			} else {
@@ -214,6 +223,28 @@ public class EnemyControl : UnitController {
 			yield return new WaitForSecondsRealtime (0.2f);
 			OnDeath(Random.Range(3,5),true);
 		}
+	}
+		
+	//return true if we should jump
+	bool NotDropping(Vector2 path){
+		print ("Utilised");
+		if (transform.position.y > path.y) {
+			RaycastHit2D myPlat;
+			RaycastHit2D targetPlat;
+		//get platform we are on
+			myPlat = Physics2D.Raycast(transform.position,Vector2.down ,Mathf.Infinity, platformMask);
+			float rayX = (myPlat.collider.bounds.max.x + 1) * transform.position.x < path.x ? 1 : -1;
+			Vector2 checkPoint = new Vector2 (rayX, transform.position.y);
+			myPlat = Physics2D.Raycast(checkPoint,Vector2.down ,Mathf.Infinity, platformMask);
+			targetPlat = Physics2D.Raycast(path,Vector2.down ,Mathf.Infinity, platformMask);
+		//check the colliders of both raycasts
+			gimzoDebug1 = myPlat.point;
+			gimzoDebug2 = targetPlat.point;
+			if(myPlat.collider != targetPlat.collider){
+				return false;
+			}
+		}
+		return true;
 	}
 
 
@@ -283,10 +314,11 @@ public class EnemyControl : UnitController {
 
 
 
-/*	void OnDrawGizmos() {
+	void OnDrawGizmos() {
+
 		if(path != null){
 		for (int i = 0; i < path.Length - 1; i++) {
-			Gizmos.color = Color.red;
+				Gizmos.color = Color.cyan;
 			Gizmos.DrawSphere (path [i].worldPosition, 0.2f);
 			Gizmos.color = Color.green;
 		}

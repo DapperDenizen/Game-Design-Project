@@ -36,6 +36,11 @@ public class Waypoint : IHeapItem<Waypoint> {
 		}
 	}
 
+	public void RemoveConnection(Waypoint remove){
+		//this is a little bugged, occasionally wont remove things
+		jumpConnections.Remove (remove);
+
+	}
 
 
 	public void LastNeighbours(Waypoint next, ConnectType type){

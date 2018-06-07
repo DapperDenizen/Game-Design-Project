@@ -730,8 +730,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.43, y: -0.13}
-  m_Size: {x: 2.18, y: 1.32}
+  m_Offset: {x: -1.49, y: -0.4}
+  m_Size: {x: 4.11, y: 2.46}
   m_Direction: 1
 --- !u!95 &95778470838104628
 Animator:
@@ -764,7 +764,7 @@ MonoBehaviour:
   maxHealth: 70
   stunTime: 1
   health: 0
-  jumpVel: 40
+  jumpVel: 20
   walkSpeed: 2.5
   rb2d: {fileID: 0}
   groundLayer:

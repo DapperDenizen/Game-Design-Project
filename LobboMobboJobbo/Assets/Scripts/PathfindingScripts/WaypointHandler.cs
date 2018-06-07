@@ -88,16 +88,27 @@ public class WaypointHandler : MonoBehaviour {
 				if (hitA.collider != null) {
 					if (Vector2.Distance (hitA.point, hitB.point) < hitA.collider.bounds.size.y * 0.9) {
 						//check if theres already a jump connection to this platform
-						if (!platformCompare (a, b)) {
+						Waypoint[] compare = platformCompare (a, b);
+						if (compare.Length != 2) {
+							a.NextNeighbour (b, Waypoint.ConnectType.Jump);	
+						} else if (BetterConnection (a, b, compare)) {
 							a.NextNeighbour (b, Waypoint.ConnectType.Jump);	
 						}
-
+					}
+				} else {
+				//no collision detected
+					Waypoint[] compare = platformCompare (a, b);
+					if (compare.Length != 2) {
+						a.NextNeighbour (b, Waypoint.ConnectType.Jump);	
+					} else if (BetterConnection (a, b, compare)) {
+						a.NextNeighbour (b, Waypoint.ConnectType.Jump);	
 					}
 				}
 
 			}
-			//check if they are vertically connected (both are close on the Y axis B is above A
-		} else if(Mathf.Abs(a.worldPosition.x - b.worldPosition.x) < 1f && b.worldPosition.y > a.worldPosition.y && a.throughConnection == null){
+		} 
+		//check if they are vertically connected (both are close on the Y axis B is above A
+		if(Mathf.Abs(a.worldPosition.x - b.worldPosition.x) < 1f && b.worldPosition.y > a.worldPosition.y && a.throughConnection == null && Vector2.Distance (a.worldPosition, b.worldPosition) <= (maxJumpDistance*0.6f)){
 			a.NextNeighbour (b, Waypoint.ConnectType.Through); 
 
 		}
@@ -131,22 +142,41 @@ public class WaypointHandler : MonoBehaviour {
 	}
 
 
-
 	//returns true if there is a connection from a to platform on b
-	bool platformCompare(Waypoint a, Waypoint b){
-		if (a.jumpConnections.Count == 0) {
-			return false;
+	Waypoint[] platformCompare(Waypoint a, Waypoint b){
+		Waypoint[] returnPoints = new Waypoint[2];
+		if (a.jumpConnections.Count == 0 || b.jumpConnections.Count == 0) {
+			return new Waypoint[0];
 		}
 		RaycastHit2D hitPoint; 
 		RaycastHit2D hitB = Physics2D.Raycast(b.worldPosition,Vector2.down,Mathf.Infinity,platformMask);
+		returnPoints [0] = b;
 		foreach (Waypoint point in a.jumpConnections) {
 			hitPoint = Physics2D.Raycast(point.worldPosition,Vector2.down,Mathf.Infinity,platformMask);
 			if (hitB.collider == hitPoint.collider) {
-				return true;
+				returnPoints [1] = point;
+				return returnPoints;
 			}
 		}
+		return returnPoints;
+	}
+
+	bool BetterConnection(Waypoint a, Waypoint b, Waypoint[] cd){
+		if (cd [1] == null) {
+			return false; // how does this even happen?
+		}
+		float distAB = Vector2.Distance (a.worldPosition, b.worldPosition);
+		float distCD = Vector2.Distance(cd[0].worldPosition,cd[1].worldPosition);
+			if( distCD > distAB){
+				//remove cd return true
+				cd[0].RemoveConnection(cd[1]);
+				cd[1].RemoveConnection(cd[0]);
+				return true;
+			}
 		return false;
 	}
+
+
 	//utility
 
 
@@ -180,9 +210,12 @@ public class WaypointHandler : MonoBehaviour {
 
 
 
-	/*void OnDrawGizmos() {
+	void OnDrawGizmos() {
 		for(int i = 0; i < waypoints.Length-1; i++){
 			Gizmos.color = Color.red;
+			if (waypoints [i].onEdge) {
+				Gizmos.color = Color.yellow;
+			}
 			Gizmos.DrawSphere (waypoints [i].worldPosition, 0.2f);
 			Gizmos.color = Color.green;
 			foreach (Waypoint point in waypoints[i].getNeighbours()) {
