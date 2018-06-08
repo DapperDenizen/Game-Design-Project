@@ -18,12 +18,12 @@ public class EnemyControl : UnitController {
 	//Pathfinding
 	public Pathfinding.PathWay[] path; // this is the path we are following
 	public Pathfinding.PathWay currentTarget;
-	Vector2 targetPlace;
+	public Vector2 targetPlace;
 	int currentIndex;
-	bool pathRequested = false;
-	bool pathInProgress = false;
-	int pathFailScore =0;
-	int maxPathAttempt =5;
+	public bool pathRequested = false;
+	public bool pathInProgress = false;
+	public int pathFailScore =0;
+	public int maxPathAttempt =5;
 	//dumb things
 	public int strength; // used for spawning AI
 	public bool stacking;
@@ -31,7 +31,7 @@ public class EnemyControl : UnitController {
 	float stackOffset;
 	//
 	//references
-	GameObject player;
+	public GameObject player;
 	public GameObject crabGore;
 	public BoxCollider2D col;
 	public CrabSpawner Spawner;
