@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class UnitController : MonoBehaviour {
 	//
-	public  enum State  {stunned,fine,spawning};
+	public  enum State  {stunned,fine,spawning}; // states a unit can be in, these are typically to restrict movements
 	//stats
-	public float maxHealth;
+	public float maxHealth; 
 	public float stunTime;
-	public float health;
+	public float health; //dont touch this in the inspector use maxHealth to assign health
 	public float jumpVel;
 	public float walkSpeed;
 	//references
@@ -18,11 +18,9 @@ public class UnitController : MonoBehaviour {
 	public Animator anim;
 	public SpriteRenderer sprite;
 	//variables
-	public State state = State.fine;
+	public State state = State.fine; 
 	public bool grounded = false;
 	private float recoilTimer = 0.3f;
-	public float fallMulti = 3;
-	public float gravityBase;
 	int xDirection; // x direction is the current direction we are facing
 	//
 
@@ -38,7 +36,7 @@ public class UnitController : MonoBehaviour {
 	}
 
 
-
+	//these are to deal with grounded functions, please ensure the walls are not on the ground layer
 	void OnCollisionEnter2D (Collision2D collision)
 	{
 		if (collision.gameObject.layer == groundLayer) {
@@ -51,7 +49,6 @@ public class UnitController : MonoBehaviour {
 		}
 
 	}
-
 	void OnCollisionExit2D (Collision2D collision)
 	{
 		if (collision.gameObject.layer == groundLayer) {
@@ -59,7 +56,7 @@ public class UnitController : MonoBehaviour {
 		}
 	}
 
-	//called when hit by weapon
+	//called when hit by weapon, this function is also used for general knockback (eg when a crab hits a player)
 	//the vector 3 is a vector 2 of the knockback velocity/direction (x,y) and the damage of the weapon (z)
 	virtual public void Hit(Vector3 info){
 		//remove health
@@ -74,13 +71,14 @@ public class UnitController : MonoBehaviour {
 		}
 	}
 
+	//this is the stunn function, it is called when hit
 	virtual public void Recoiled(){
 		
 		StartCoroutine (WaitForRecoil ());
 
 	}
 
-
+	//this is the knockback a unit will recieve
 	virtual public void KnockBack(Vector2 vector){
 		rb2d.AddRelativeForce (vector,ForceMode2D.Impulse);
 
@@ -100,6 +98,7 @@ public class UnitController : MonoBehaviour {
 		Destroy(this.gameObject);
 	}
 
+	//this is the unit movement functions, works with the player but is kinda janky with the crabs, it deals with moving the player and the associated movement animations
 	public void MoveUnit(Vector2 direction){
 
 		if (direction.x > 0) {
@@ -137,6 +136,7 @@ public class UnitController : MonoBehaviour {
 		grounded = true;
 	}
 
+	//this is the sprite rotation functions, i found it less of a headache to just reverse the scale of a sprite than rotate it!
 	public void rotateSprite(bool side){
 		if (side) {
 			//xDirection = 1;

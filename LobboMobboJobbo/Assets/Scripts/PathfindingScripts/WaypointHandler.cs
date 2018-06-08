@@ -12,16 +12,13 @@ public class WaypointHandler : MonoBehaviour {
 	public float waypointSpacing; // space between each waypoint
 	public float hoverSpacing; //space above platform
 	public float maxJumpDistance;
-	//public float maxAngle; // maximum angle from 90 degrees ( 90 absolute max, 0 absolute min
-	//public float minAngle; // minimum angle from 90 degrees
+	//this code breaks very often so every new impelementation or level design change will require a rework of some descrption
 
 	//RECCOMENDED SETTINGS!
 	/*
-	 * waypoint spacing = 1.5
-	 * hover = 0.4
-	 * max jump = 6
-	 * max angle = 75
-	 * min angle = 15
+	 * waypoint spacing = 1.5 -> space between each waypoint( smaller = more waypoints)
+	 * hover = 0.4 -> how far above a platform the points rest
+	 * max jump = 6 -> max distance for jump connections
 	 */
 	//
 
@@ -29,7 +26,6 @@ public class WaypointHandler : MonoBehaviour {
 	void Start () {
 		//get everything
 		platformMask = LayerMask.GetMask("Ground");
-
 		platforms = GameObject.FindGameObjectsWithTag("Ground");
 		//make waypoints
 		Vector2 startPos;
@@ -160,7 +156,7 @@ public class WaypointHandler : MonoBehaviour {
 		}
 		return returnPoints;
 	}
-
+	//checks if there is a better connection
 	bool BetterConnection(Waypoint a, Waypoint b, Waypoint[] cd){
 		if (cd [1] == null) {
 			return false; // how does this even happen?
@@ -177,9 +173,7 @@ public class WaypointHandler : MonoBehaviour {
 	}
 
 
-	//utility
-
-
+	//utility functions
 	void QuickSort(int low, int high){
 		//sort platforms so the smaller X position is first in the list
 		if(low< high){
@@ -209,8 +203,8 @@ public class WaypointHandler : MonoBehaviour {
 
 
 
-
-	void OnDrawGizmos() {
+	//use this to check the waypoint generation
+	/*void OnDrawGizmos() {
 		for(int i = 0; i < waypoints.Length-1; i++){
 			Gizmos.color = Color.red;
 			if (waypoints [i].onEdge) {

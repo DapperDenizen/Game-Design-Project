@@ -67,7 +67,7 @@ public class EnemyControl : UnitController {
 
 	}
 
-
+	//these are the updates to do with getting a path, this could be more efficent
 	void FixedUpdate(){
 		if (player != null) {
 			if (!pathRequested && !stacking) {
@@ -100,6 +100,7 @@ public class EnemyControl : UnitController {
 		}
 	}
 
+	//these updates are for the animations that arent handled in the unitcontroller script
 	void Update(){
 		if (player != null) {
 			if (Vector2.Distance (transform.position, player.transform.position) < 2f) {
@@ -111,7 +112,7 @@ public class EnemyControl : UnitController {
 	}
 
 
-
+	//this is to reach the lobster in the case the player is JUST out of a waypoints reach
 	virtual public void CloseEnough(){
 		float xChange;
 		xChange = transform.position.x < player.transform.position.x ? walkSpeed : -walkSpeed;
@@ -119,7 +120,7 @@ public class EnemyControl : UnitController {
 	} //Extend this for the boss!
 
 
-
+	//this asks for a path from the path request manager
 	void StartPath(Vector2 targetGoal){
 		if (!pathRequested) {
 			targetPlace = targetGoal;
@@ -129,6 +130,7 @@ public class EnemyControl : UnitController {
 		}
 	}
 
+	//this is what the path request manager tells the path too
 	virtual public void OnPathFound(Pathfinding.PathWay[] newPath, bool pathSuccess){
 		pathRequested = false;
 		if (pathSuccess && this != null) {
@@ -145,7 +147,7 @@ public class EnemyControl : UnitController {
 			}
 		} else if(!pathSuccess){
 			
-			if (pathFailScore > maxPathAttempt) {
+			if (pathFailScore > maxPathAttempt && this != null) {
 				float panicMoveX =	transform.position.x < player.transform.position.x ? walkSpeed : -walkSpeed;
 				MoveUnit (new Vector2 (panicMoveX, rb2d.velocity.y));
 			} else {
@@ -160,6 +162,7 @@ public class EnemyControl : UnitController {
 		}
 	}
 		
+	//this is the crabs brain, there is a lot of code here but my crabs are still dumb. i do love them tho
 	IEnumerator FollowPath(){
 		//initialise
 		pathInProgress = true;
@@ -216,6 +219,7 @@ public class EnemyControl : UnitController {
 		MoveUnit(new Vector2(0, rb2d.velocity.y));
 	}
 
+	//this is override is to see if our crab should explode painfully
 	override public void Hit(Vector3 info){
 		//remove health
 		health = health - info.z;
@@ -229,6 +233,7 @@ public class EnemyControl : UnitController {
 		}
 	}
 
+	//the crabs literally can be killed by jumping into the player so maybe this should be tinkered with
 	IEnumerator CheckForce() {
 		if(rb2d.velocity.magnitude>35){
 			//do something else?
@@ -237,7 +242,7 @@ public class EnemyControl : UnitController {
 		}
 	}
 		
-	//return true if we should jump
+	//return true if we should jump, used (unsuccessfully) to check if we should drop down to a platform or if we need to jump to it
 	bool NotDropping(Vector2 path){
 		if (transform.position.y > path.y) {
 			RaycastHit2D myPlat;
@@ -258,7 +263,7 @@ public class EnemyControl : UnitController {
 		return true;
 	}
 
-
+	//this is where we tell the enemy spawner and explode
 	public void OnDeath(int meat, bool hardDeath){
 	//spew meat
 		Explode(meat,hardDeath);
@@ -268,6 +273,7 @@ public class EnemyControl : UnitController {
 		base.OnDeath();
 	}
 
+	//this is the explosion function, i rolled several of Rob's original functions into this one
 	void Explode(int meat, bool hardDeath){
 		//meat
 		meatSpawner (meat);
@@ -285,6 +291,7 @@ public class EnemyControl : UnitController {
 		}
 	}
 
+	//i made the meat spawner spawn a random amount of meat (more on har death)
 	private void meatSpawner(int amount){
 		for(int x=0; x<amount; x++){
 			GameObject crabMeatObject = Instantiate(crabMeat, transform.position, Quaternion.Euler(0,0,0));
@@ -292,6 +299,7 @@ public class EnemyControl : UnitController {
 		}
 	}
 
+	//this is so our crabs dont start moving around while in flight
 	override public void HitGround(){
 		base.HitGround ();
 		if (state == State.spawning) {
@@ -315,17 +323,9 @@ public class EnemyControl : UnitController {
 			}
 		}
 	}
-	/*private void OnTriggerExit2D(Collider2D other)
-	{
-		if (other.gameObject.tag == "Player")
-		{
-			anim.SetBool("Attacking",false);
-		}
-	}//*/
 
 
-
-	void OnDrawGizmos() {
+/*	void OnDrawGizmos() {
 
 		if(path != null){
 		for (int i = 0; i < path.Length - 1; i++) {

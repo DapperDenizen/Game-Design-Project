@@ -23,7 +23,7 @@ public class PlayerControl : UnitController {
 		pAttack = GetComponentInChildren<PlayerAttack> ();
 	}
 
-	//update function
+	//update function, this checks the inputs of the player
 	void FixedUpdate(){
 		//WASD keys
 		//A+D
@@ -41,7 +41,6 @@ public class PlayerControl : UnitController {
 			//rb2d.velocity = new Vector2(rb2d.velocity.x, 0);
 			//yVel = jumpVel;
 			if (rb2d.velocity.y < 0) {
-				rb2d.gravityScale = gravityBase;
 				rb2d.velocity = new Vector2 (rb2d.velocity.x, jumpVel);
 			} else {
 				rb2d.velocity = new Vector2 (rb2d.velocity.x, rb2d.velocity.y+(jumpVel));
@@ -64,7 +63,7 @@ public class PlayerControl : UnitController {
 
 
 	}
-
+	//this is for the attack animations
 	void Update(){
 		//Attack buttons
 		//melee attacks
@@ -88,7 +87,7 @@ public class PlayerControl : UnitController {
 		}
 	}
 
-
+	//this would have been nice to implement
 /*	IEnumerator CallAttack(string attack){
 		if (Camera.main.ScreenToWorldPoint (Input.mousePosition).x > transform.position.x) {
 			rotateSprite (false);
@@ -104,7 +103,7 @@ public class PlayerControl : UnitController {
 	}//*/
 
 
-	//Thorns
+	//Thorns doesnt work anymore
 	void Thorns()
 	{
 		int increment = -270;
