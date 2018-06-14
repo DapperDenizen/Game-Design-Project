@@ -174,14 +174,14 @@ public class EnemyControl : UnitController {
 				//check if jumping
 				if(path[currentIndex].isJumping){
 					//connection is jump type
-					if(NotDropping(path[currentIndex].worldPosition)){
-						//not dropping
+
+						
 						if (grounded) {
 							yIntention = jumpVel;
 						} else {
 							unFinishedJump = true;
 						}
-					}
+					
 				}
 				if (!unFinishedJump) {
 					currentIndex++;
@@ -235,33 +235,13 @@ public class EnemyControl : UnitController {
 
 	//the crabs literally can be killed by jumping into the player so maybe this should be tinkered with
 	IEnumerator CheckForce() {
-		if(rb2d.velocity.magnitude>35){
+		if(rb2d.velocity.magnitude>45){
 			//do something else?
 			yield return new WaitForSecondsRealtime (0.2f);
 			OnDeath(Random.Range(3,5),true);
 		}
 	}
 		
-	//return true if we should jump, used (unsuccessfully) to check if we should drop down to a platform or if we need to jump to it
-	bool NotDropping(Vector2 path){
-		if (transform.position.y > path.y) {
-			RaycastHit2D myPlat;
-			RaycastHit2D targetPlat;
-		//get platform we are on
-			myPlat = Physics2D.Raycast(transform.position,Vector2.down ,Mathf.Infinity, platformMask);
-			float rayX = (myPlat.collider.bounds.max.x + 1) * transform.position.x < path.x ? 1 : -1;
-			Vector2 checkPoint = new Vector2 (rayX, transform.position.y);
-			myPlat = Physics2D.Raycast(checkPoint,Vector2.down ,Mathf.Infinity, platformMask);
-			targetPlat = Physics2D.Raycast(path,Vector2.down ,Mathf.Infinity, platformMask);
-		//check the colliders of both raycasts
-			gimzoDebug1 = myPlat.point;
-			gimzoDebug2 = targetPlat.point;
-			if(myPlat.collider != targetPlat.collider){
-				return false;
-			}
-		}
-		return true;
-	}
 
 	//this is where we tell the enemy spawner and explode
 	public void OnDeath(int meat, bool hardDeath){
@@ -325,7 +305,7 @@ public class EnemyControl : UnitController {
 	}
 
 
-/*	void OnDrawGizmos() {
+/*void OnDrawGizmos() {
 
 		if(path != null){
 		for (int i = 0; i < path.Length - 1; i++) {

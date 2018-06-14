@@ -119,16 +119,15 @@ public class UnitController : MonoBehaviour {
 		}
 
 		//Y vaules
-
-		if(!grounded && rb2d.velocity.y < 0) {
-			rb2d.AddForce(new Vector2(0,-50));
-		} 
-
-
+			
 
 		if (state == State.fine) {
 			rb2d.velocity = direction;
 		}
+
+		if(!grounded && rb2d.velocity.y < 0) {
+			rb2d.AddForce(new Vector2(0,-50));
+		} 
 	}
 
 	//jumping functions

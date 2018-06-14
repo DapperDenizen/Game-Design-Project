@@ -9,7 +9,8 @@ public class Waypoint : IHeapItem<Waypoint> {
 	public Waypoint throughConnection; // you can go through a platform here
 	public Waypoint fromConnection; //you arrive from a platform here
 	public Vector2 worldPosition;
-	LayerMask platform = LayerMask.GetMask ("Ground");
+	public Collider2D platform;
+	LayerMask platMask = LayerMask.GetMask ("Ground");
 	public bool onEdge;
 	public int gCost; // Distance from starting position
 	public int hCost; // distance from ending position
@@ -20,28 +21,38 @@ public class Waypoint : IHeapItem<Waypoint> {
 	public Waypoint(Vector2 worldPosition, bool isEdge){
 		this.worldPosition = worldPosition;
 		onEdge = isEdge;
-
+		RaycastHit2D hit = Physics2D.Raycast (worldPosition, Vector2.down, Mathf.Infinity, platMask);
+		platform = hit.collider;
 	}
 
 	public void NextNeighbour(Waypoint next, ConnectType type){
-		if (type == ConnectType.Jump) {
-			jumpConnections.Add(next);
-			next.LastNeighbours (this, type);
-		} else if (type == ConnectType.Walk) {
-			neighbours.Add (next);
-			next.LastNeighbours (this, type);
-		} else {
-			throughConnection = next;
-			next.fromConnection = this;
+		if (!alreadyContained (next)) {
+			if (type == ConnectType.Jump) {
+				jumpConnections.Add (next);
+				next.LastNeighbours (this, type);
+			} else if (type == ConnectType.Walk) {
+				neighbours.Add (next);
+				next.LastNeighbours (this, type);
+			} else {
+				throughConnection = next;
+				next.fromConnection = this;
+			}
 		}
 	}
 
 	public void RemoveConnection(Waypoint remove){
 		//this is a little bugged, occasionally wont remove things
 		jumpConnections.Remove (remove);
-
 	}
 
+	bool alreadyContained(Waypoint newFriend){
+		foreach (Waypoint point in getNeighbours()) {
+			if (newFriend.Equals (point)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public void LastNeighbours(Waypoint next, ConnectType type){
 		if (type == ConnectType.Jump) {

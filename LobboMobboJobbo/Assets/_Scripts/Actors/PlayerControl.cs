@@ -54,7 +54,6 @@ public class PlayerControl : UnitController {
 		}
 		//
 
-
 		//calculating movement and executing
 		yChange = yVel + rb2d.velocity.y;
 		yVel = 0;
