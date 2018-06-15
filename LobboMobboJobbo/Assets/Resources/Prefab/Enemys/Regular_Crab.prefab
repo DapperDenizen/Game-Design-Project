@@ -441,7 +441,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1157921312819008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 8.51, y: 1.94, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children:
   - {fileID: 4447714672643078}
@@ -570,7 +570,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1354192407558990}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.19, y: -1.02, z: 0}
+  m_LocalPosition: {x: 0.18, y: -4, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
   - {fileID: 4248268375738526}
@@ -685,7 +685,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 5.5
+  m_LinearDrag: 4.5
   m_AngularDrag: 0.05
   m_GravityScale: 2
   m_Material: {fileID: 6200000, guid: 022b1eeb3b3bc44fc81fd380d6478740, type: 2}
@@ -705,7 +705,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.3, y: -0.36}
+  m_Offset: {x: 0.456316, y: -0.88906944}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -716,7 +716,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.35, y: 1.84}
+  m_Size: {x: 4.662632, y: 0.78186107}
   m_EdgeRadius: 0
 --- !u!70 &70262795770735494
 CapsuleCollider2D:
@@ -764,7 +764,7 @@ MonoBehaviour:
   maxHealth: 70
   stunTime: 1
   health: 0
-  jumpVel: 20
+  jumpVel: 25
   walkSpeed: 2.5
   rb2d: {fileID: 0}
   groundLayer:
@@ -777,13 +777,17 @@ MonoBehaviour:
   sprite: {fileID: 0}
   state: 2
   grounded: 0
-  fallMulti: 3
-  gravityBase: 1
   knock: 10
   dam: 5
+  targetPlace: {x: 0, y: 0}
+  pathRequested: 0
+  pathInProgress: 0
+  pathFailScore: 0
+  maxPathAttempt: 5
   strength: 1
   stacking: 0
   buddy: {fileID: 0}
+  player: {fileID: 0}
   crabGore: {fileID: 0}
   col: {fileID: 0}
   Spawner: {fileID: 0}

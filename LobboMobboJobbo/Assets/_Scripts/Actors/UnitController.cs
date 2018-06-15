@@ -44,7 +44,8 @@ public class UnitController : MonoBehaviour {
 		}
 
 		if(collision.gameObject.layer == wallLayer && state == State.stunned) {
-			Vector3 info = new Vector3 (transform.position.x < collision.transform.position.x ? 20 : -20, 1f, 0);
+			print ("wall hit");
+			Vector3 info = new Vector3 (transform.position.x > collision.transform.position.x ? 5 : -5, 1f, 0);
 			Hit (info);
 		}
 
@@ -100,7 +101,6 @@ public class UnitController : MonoBehaviour {
 
 	//this is the unit movement functions, works with the player but is kinda janky with the crabs, it deals with moving the player and the associated movement animations
 	public void MoveUnit(Vector2 direction){
-
 		if (direction.x > 0) {
 			anim.SetBool ("Walking", true);
 			if (xDirection > 0) {
@@ -120,7 +120,6 @@ public class UnitController : MonoBehaviour {
 
 		//Y vaules
 			
-
 		if (state == State.fine) {
 			rb2d.velocity = direction;
 		}

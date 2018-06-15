@@ -101,11 +101,11 @@ public class WaypointHandler : MonoBehaviour {
 				//check the platform isnt already in use!
 				Waypoint compared = platformCompare (a, b);
 				if (compared == a) {
-						print (Vector2.Angle (Vector2.up, direction));
+						//print (Vector2.Angle (Vector2.up, direction));
 					ConnectPoints (a, b, Waypoint.ConnectType.Jump);
 
 				} else if (BetterConnection (a, b, compared)) {
-						print (Vector2.Angle (Vector2.up, direction));
+						//print (Vector2.Angle (Vector2.up, direction));
 						ConnectPoints (a, b, Waypoint.ConnectType.Jump);
 				}
 			}

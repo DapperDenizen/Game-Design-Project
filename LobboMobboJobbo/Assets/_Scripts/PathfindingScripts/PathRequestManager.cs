@@ -21,7 +21,6 @@ public class PathRequestManager : MonoBehaviour {
 
 	//request path
 	public static void RequestPath(Vector2 pathStart, Vector2 pathEnd, Action<Pathfinding.PathWay[],bool> callback){
-
 		PathRequest newRequest = new PathRequest (pathStart, pathEnd, callback);
 		instance.pathRequestQueue.Enqueue (newRequest);
 		instance.TryProcessNext ();

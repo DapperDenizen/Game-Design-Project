@@ -64,10 +64,6 @@ public class Pathfinding : MonoBehaviour {
 		yield return null;
 		if (pathSuccess) {
 			pathPoints = RetracePath (startingPoint, targetPoint);
-			if (pathPoints.Length <= 1) {
-				//print ("UH OH SPEGGETTI Os");
-			}
-			//gizmoPath = pathPoints;
 		}
 		requestManager.FinishedProcessingPath (pathPoints, pathSuccess);
 
@@ -86,6 +82,7 @@ public class Pathfinding : MonoBehaviour {
 			through = currentPoint.Isthrough(currentPoint.parent);
 			currentPoint = currentPoint.parent;
 		}
+		path.Add (new PathWay (currentPoint.worldPosition, jumpingHere, through));
 		PathWay[] returnPath;
 		returnPath = path.ToArray();
 		Array.Reverse(returnPath);

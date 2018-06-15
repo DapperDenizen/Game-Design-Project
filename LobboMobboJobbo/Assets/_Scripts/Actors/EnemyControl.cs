@@ -15,11 +15,12 @@ public class EnemyControl : UnitController {
 	float yOffset =0;
 	public float knock = 5f; // this is the knock back strength
 	public float dam;
+	float baseWalkSpeed;
 	//Pathfinding
 	public Pathfinding.PathWay[] path; // this is the path we are following
 	public Pathfinding.PathWay currentTarget;
 	public Vector2 targetPlace;
-	int currentIndex;
+	int currentIndex = 0;
 	public bool pathRequested = false;
 	public bool pathInProgress = false;
 	public int pathFailScore =0;
@@ -44,6 +45,7 @@ public class EnemyControl : UnitController {
 	//override means i am using this Start() not the parent(unit)'s start, but calling base.start() means i call it as well
 	override public void Awake(){
 		base.Awake ();
+		baseWalkSpeed = walkSpeed;
 		platformMask = LayerMask.GetMask("Ground");
 		Spawner = GameObject.FindGameObjectWithTag ("GameController").GetComponent<CrabSpawner>();
 		player = GameObject.FindGameObjectWithTag ("Player"); //this is the guy we hate
@@ -70,20 +72,17 @@ public class EnemyControl : UnitController {
 	//these are the updates to do with getting a path, this could be more efficent
 	void FixedUpdate(){
 		if (player != null) {
-			if (!pathRequested && !stacking) {
+			if (!pathRequested && !stacking && grounded) {
 				if (Vector2.Distance (transform.position, player.transform.position) < 2.1f) {
 					//attack animation plays
 					CloseEnough();
 				} else if (!pathInProgress) {
 					StartPath (player.transform.position);
 					pathRequested = true;
-				} else if (Vector2.Distance (targetPlace, player.transform.position) > 4.5f) {
+				} else if (Vector2.Distance (targetPlace, player.transform.position) > 4f) {
 
 					StartPath (player.transform.position);
 					pathRequested = true;
-				}
-				if (!grounded && !pathInProgress) {
-					MoveUnit(new Vector2(0, rb2d.velocity.y+-1f));
 				}
 			} else if (stacking) {
 				//check buddys not dead
@@ -138,7 +137,7 @@ public class EnemyControl : UnitController {
 			if (newPath.Length > 0) {
 
 				if (newPath [newPath.Length - 1].worldPosition != targetPlace) {
-					path = newPath;
+					path =newPath;
 					StopCoroutine ("FollowPath");
 					//print ("stopping because " + temp);
 					pathInProgress = false;
@@ -148,14 +147,21 @@ public class EnemyControl : UnitController {
 		} else if(!pathSuccess){
 			
 			if (pathFailScore > maxPathAttempt && this != null) {
-				float panicMoveX =	transform.position.x < player.transform.position.x ? walkSpeed : -walkSpeed;
-				MoveUnit (new Vector2 (panicMoveX, rb2d.velocity.y));
+				PanicMovement ();
 			} else {
 				pathFailScore++;
 			}
 		}
 
 	}
+
+	public void PanicMovement(){
+		print ("Im panicing");
+		float panicMoveX =	transform.position.x < player.transform.position.x ? walkSpeed : -walkSpeed;
+		print ("im going " + panicMoveX +" and im in "+ state +" state");
+		MoveUnit (new Vector2 (panicMoveX, rb2d.velocity.y));
+	}
+
 	override public void Recoiled(){
 		if (!stacking) {
 			base.Recoiled ();
@@ -166,57 +172,59 @@ public class EnemyControl : UnitController {
 	IEnumerator FollowPath(){
 		//initialise
 		pathInProgress = true;
-		int currentIndex = 0;
+		currentIndex = 0;
 		bool unFinishedJump = false;
+		int faultGetOut = 0; //used to see if we have failed to navigate the path
 		//loop
+
 		while(true){
-			if (Mathf.Abs (transform.position.x - path[currentIndex].worldPosition.x) < 1f) {
-				//check if jumping
-				if(path[currentIndex].isJumping){
-					//connection is jump type
-
-						
-						if (grounded) {
-							yIntention = jumpVel;
-						} else {
-							unFinishedJump = true;
-						}
-					
+			//check if reached destination
+			if(Vector2.Distance(transform.position,path[currentIndex].worldPosition) <.5f && grounded){
+				//checking the Y intention (easiest done here
+				if (path [currentIndex].isJumping & grounded) {
+					//check if next point is above or below
+					Vector2 dir = new Vector2(transform.position.x, transform.position.y) - path[currentIndex+1].worldPosition;
+					if (Vector2.Angle (Vector2.up, dir) > 80f) {
+						yIntention = 1;
+					} else {
+						yIntention = 0;
+					}
+				} else {
+					yIntention = 0;
 				}
-				if (!unFinishedJump) {
-					currentIndex++;
-				}
+				faultGetOut = 0;
+				currentIndex++;
 			}
-			if (currentIndex > path.Length -1) {pathInProgress = false;break; }
-			//x direction
-			if (Mathf.Abs (transform.position.x - path [currentIndex].worldPosition.x) > 1f ) {
-				if (transform.position.x < path [currentIndex].worldPosition.x) {
-					xIntention = 1;
-				} else if (transform.position.x > path [currentIndex].worldPosition.x) {
-					xIntention = -1;
-				}
+			if (currentIndex > path.Length - 1) {
+				pathInProgress = false;
+				break;
 			}
-			if (unFinishedJump && grounded) {
-				yIntention = jumpVel;
-				unFinishedJump = false;
+			//Xintention
+			xIntention = transform.position.x < path[currentIndex].worldPosition.x ? 1: -1;
+			if (Mathf.Abs (transform.position.x - path [currentIndex].worldPosition.x) < .3f) {
+				//this is so the crabs animations dont freak out when over a waypoint but not close enough to go to the next waypoint!
+				xIntention = 0;
 			}
-			if (rb2d.velocity.y > 0 && yIntention > 0) {
-				yIntention = 0;
-			}
-			float yChange = rb2d.velocity.y + yIntention;
-			float xChange = xIntention * walkSpeed;
-			yIntention = 0;
-			xIntention = 0;
-
-			if (!unFinishedJump) {
-				MoveUnit (new Vector2 (xChange, yChange));
+				//making air movement faster for crabs
+			if (!grounded) {
+				walkSpeed = baseWalkSpeed * 1.5f;
 			} else {
-				MoveUnit(new Vector2(0, rb2d.velocity.y+-1f));
+				walkSpeed = baseWalkSpeed ;
 			}
+			if (Mathf.Abs (transform.position.x - path [currentIndex].worldPosition.x) < 1f && Mathf.Abs (transform.position.y - path [currentIndex].worldPosition.y) > 2f && rb2d.velocity.y ==0) {
+				//this is here as a panic movement for when the crabs collider makes it stuck .3f over a waypoint
+				xIntention = transform.position.x < path[currentIndex].worldPosition.x ? 1: -1;
+			}
+
+
+			//use the intentions
+			MoveUnit (new Vector2 (xIntention * walkSpeed, rb2d.velocity.y + (yIntention * jumpVel)));
+			yIntention = 0;
 			yield return null;
 		}
+		//end loop
 		//set movement to 0
-		MoveUnit(new Vector2(0, rb2d.velocity.y));
+		MoveUnit(new Vector2(0, rb2d.velocity.y));;
 	}
 
 	//this is override is to see if our crab should explode painfully
@@ -235,7 +243,7 @@ public class EnemyControl : UnitController {
 
 	//the crabs literally can be killed by jumping into the player so maybe this should be tinkered with
 	IEnumerator CheckForce() {
-		if(rb2d.velocity.magnitude>45){
+		if(rb2d.velocity.magnitude>55){
 			//do something else?
 			yield return new WaitForSecondsRealtime (0.2f);
 			OnDeath(Random.Range(3,5),true);
@@ -305,13 +313,15 @@ public class EnemyControl : UnitController {
 	}
 
 
-/*void OnDrawGizmos() {
+void OnDrawGizmos() {
 
 		if(path != null){
 		for (int i = 0; i < path.Length - 1; i++) {
-				Gizmos.color = Color.cyan;
+				Gizmos.color = Color.green;
+				if (path [i].isJumping) {
+					Gizmos.color = Color.cyan;
+				}
 			Gizmos.DrawSphere (path [i].worldPosition, 0.2f);
-			Gizmos.color = Color.green;
 		}
 	}
 	} //*/
